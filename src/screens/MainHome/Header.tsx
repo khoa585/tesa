@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { Image, StyleSheet, View, TouchableOpacity, Text, Platform } from "react-native";
 
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import * as screen from '../../constants/ScreenTypes'
@@ -14,7 +14,10 @@ const Header: FunctionComponent = () => {
         <>
             <View style={styles.container}>
                 <View style={styles.wrapperIcon}>
-                    <View style={styles.bgimage}>
+                    <View style={[styles.bgimage,
+                        Platform.OS === 'ios' && styles.shadowOs,
+                        Platform.OS === 'android' && styles.shadowAndroid
+                        ]}>
                         <Image source={logo} style={styles.logo}></Image>
                     </View>
                     <Text style={styles.title}>Manga Vip</Text>
@@ -47,14 +50,28 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
+        justifyContent: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    shadowOs:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+    },
+    shadowAndroid: {
         shadowOffset: { width: 12, height: 12 },
         shadowColor: '#fff',
         shadowOpacity: 1.0,
         shadowRadius: 18,
-        justifyContent: "center",
-        flexDirection: 'row',
-        alignItems: 'center'
+        elevation:2
     },
+
     logo: {
         height: '70%',
         width: '70%',
