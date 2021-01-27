@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 1000,
         overflow: 'hidden',
-        backgroundColor: '#f94144',
+        backgroundColor: '#e63946',
         zIndex:-1
     },
 })

@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      <StatusBar backgroundColor='#f94144' />
+      <StatusBar backgroundColor='#e63946' />
       <SafeAreaView style={styles.container}>
         <Navigation></Navigation>
       </SafeAreaView>

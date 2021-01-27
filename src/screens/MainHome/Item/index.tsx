@@ -10,7 +10,7 @@ const { width } = Dimensions.get('window');
 const Item = ({ item }) => {
     const navigation = useNavigation();
     const goToDetialComic = (id) => {
-        // navigation.navigate(SCREEN.DETIAL_COMIC_SCREEN,{id:id})
+         navigation.navigate(SCREEN.DETIAL_COMIC_SCREEN,{id:id})
     }
     return (
         <RectButton style={styles.container} onPress={() => goToDetialComic(item._id)} >
