@@ -58,10 +58,10 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontFamily: 'src_assets_fonts_barlowsemibold'
+       
     },
     seenAll: {
         fontSize: 13,
-        fontFamily: 'src_assets_fonts_barlowextralight'
+ 
     }
 })
