@@ -1,0 +1,110 @@
+import React from 'react';
+import { Text, View, Image, StyleSheet } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
+import { formatViews } from '../../../../common/stringHelper';
+import { useNavigation } from '@react-navigation/native';
+import * as SCREEN from '../../../../constants/ScreenTypes';
+import isEqual from 'react-fast-compare';
+import { RectButton } from 'react-native-gesture-handler';
+import { SCREEN_WIDTH } from '../../../../constants'
+
+const Item = ({ item }) => {
+    const navigation = useNavigation();
+    const goToDetialComic = (id: string) => {
+        navigation.navigate(SCREEN.DETIAL_COMIC_SCREEN, { item: item, id: id })
+    }
+    return (
+        <RectButton style={styles.container} onPress={() => goToDetialComic(item._id)} >
+            <View style={styles.imageLeft}>
+                <View style={styles.containerImage}>
+                    <Image source={{ uri: item.image }}
+                        resizeMode='cover'
+                        style={styles.imageRecommend}></Image></View>
+
+            </View>
+            <View style={styles.contaiItem}>
+                <Text numberOfLines={1} style={styles.nameComic}>{item.name}</Text>
+                <View style={styles.inforComic}>
+                    <Feather name="eye" size={10} style={{ marginRight: 5 }}></Feather>
+                    <Text style={styles.nameChap}> {formatViews(item.views)}</Text>
+                </View>
+            </View>
+        </RectButton>
+    )
+}
+export default React.memo(Item, isEqual)
+const styles = StyleSheet.create({
+    container: {
+        width: ((SCREEN_WIDTH / 2.5)),
+        height: (SCREEN_WIDTH * 0.6),
+        marginRight: 20,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+        elevation: 2,
+        marginBottom: 1,
+        marginLeft:1
+    },
+    imageRecommend: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 5,
+        resizeMode: 'cover',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    containerImage: {
+        width: "80%",
+        height: "90%",
+        resizeMode: 'cover',
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity:  0.4,
+        shadowRadius: 3,
+        elevation: 4,
+    },
+    imageLeft: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '80%',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+
+    },
+    contaiItem: {
+        justifyContent: 'space-between',
+        height: '20%',
+        paddingHorizontal:15,
+        paddingBottom:10
+    },
+    nameComic: {
+        paddingTop: 5,
+        textAlign: "center",
+        fontSize: 12
+    },
+    nameChap: {
+        textAlign: "center",
+        fontSize: 10
+    },
+    inforComic: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5,
+
+    }
+})

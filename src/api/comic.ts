@@ -1,18 +1,12 @@
 import axios from './axios';
-export const getListHotCommic = (page = 1, numberItem = 10) => {
+export const getListTypeCommic = (page = 1, numberItem = 10, type = 0) => {
     return axios.post('/manga/get-list', {
         page: page,
         numberItem: numberItem,
-        type: 0
+        type: type
     })
 }
-export const getListCommicNew = (page = 1, numberItem = 10) => {
-    return axios.post('/manga/get-list', {
-        page: page,
-        numberItem: numberItem,
-        type: 1
-    })
-}
+
 export const getListComicByType = (page = 1, numberItem = 0, type = 0) => {
     return axios.post('/manga/get-list', {
         page: page,
@@ -20,12 +14,12 @@ export const getListComicByType = (page = 1, numberItem = 0, type = 0) => {
         type: type
     })
 }
-export const getDetialComic = (id) => {
+export const getDetialComic = (id: string) => {
     return axios.post("/manga/detial-manga", {
         manga_id: id
     })
 }
-export const getListByCategorySortViews = (page = 1, numberItem = 12, category) => {
+export const getListByCategorySortViews = (page = 1, numberItem = 12, category: any) => {
     return axios.post("/manga/get-list-category", {
         page: page,
         numberItem: numberItem,
@@ -33,7 +27,7 @@ export const getListByCategorySortViews = (page = 1, numberItem = 12, category) 
         category: category
     })
 }
-export const searchComicByName = (page = 1, numberItem = 10, name) => {
+export const searchComicByName = (page = 1, numberItem = 10, name: any) => {
     return axios.post("/manga/search-manga", {
         page: page,
         numberItem: numberItem,
@@ -41,24 +35,26 @@ export const searchComicByName = (page = 1, numberItem = 10, name) => {
     })
 }
 
-export const getListChapter = (id) => {
+export const getListChapter = (page: number = 1, id: string, numberItem: number = 100) => {
     return axios.post("/chapter/list-chapter", {
-        manga_id: id
+        manga_id: id,
+        page: page,
+        numberItem
     })
 }
-export const getDetailChapter = (id) => {
+export const getDetailChapter = (id: any) => {
     return axios.post("/chapter/detial-chapter", {
         id: id
     })
 }
-export const addDevicesManga=(manga_id,device)=>{
-    return axios.post("/manga/add-devices",{
+export const addDevicesManga = (manga_id: any, device: any) => {
+    return axios.post("/manga/add-devices", {
         manga_id: manga_id,
         device: device
     })
 }
-export const removeDevicesManga=(manga_id,device)=>{
-    return axios.post("/manga/remove-devices",{
+export const removeDevicesManga = (manga_id: any, device: any) => {
+    return axios.post("/manga/remove-devices", {
         manga_id: manga_id,
         device: device
     })

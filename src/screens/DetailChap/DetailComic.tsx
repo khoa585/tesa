@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-const HEADER_MIN_HEIGHT = 50;
-const Space = 35;
-const HEADER_HEIGHT = 0;
-const { height, width } = Dimensions.get("window");
+import Header from './Header';
+import LinearGradient from 'react-native-linear-gradient';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH_No } from '../../constants'
+import { formatViews } from '../../common/stringHelper'
 const DetailComic = ({ dataMemo }) => {
 
     const navigation = useNavigation();
+    const [isDown, setDown] = React.useState<boolean>(false);
     const showCategory = React.useCallback(() => {
         return dataMemo.category.map((item, index) => {
             return (
@@ -17,162 +18,197 @@ const DetailComic = ({ dataMemo }) => {
             )
         })
     }, [])
+
+    const gradColors = isDown ? ['#4da7db', '#5bc6ff'] : ['#5bc6ff', '#4da7db'];
     return (
-        <View style={styles.Container}>
-            <View style={styles.header}>
-                <View style={styles.containerInfo}>
-                    <View style={styles.imageLeft}>
-                        <Image source={{ uri: dataMemo.image }} style={styles.img} />
-                    </View>
-                    <View style={styles.contairight}>
-                        <Text numberOfLines={1} style={styles.nameAuthor}>Tác Giả : <Text style={styles.normal}> {dataMemo.author}</Text></Text>
-                        <Text numberOfLines={1} style={styles.status}>Trạng Thái : <Text style={styles.normal}>Hoàn Thành</Text></Text>
-                        <Text numberOfLines={2} style={styles.category}>Thể Loại : {showCategory()}</Text>
-                    </View>
+        <View style={styles.containerComic}>
+
+            <Header></Header>
+            <View style={styles.container_}>
+                <View style={styles.containerImage}>
+                    <Image source={{ uri: dataMemo.image }}
+                        style={styles.img} />
                 </View>
             </View>
+            <View style={styles.contai}>
+                <Text style={styles.nameComic}>{dataMemo.name}</Text>
+                <Text style={styles.nameAuthor}>{dataMemo.author.split(/\n/)}</Text>
+                <View style={styles.action}>
+                    <View style={styles.icon}>
+                        <LinearGradient
+                            colors={['#4da7db', '#5bc6ff']}
+                            useAngle={true}
+                            angle={145}
+                            angleCenter={{ x: 0.5, y: 0.5 }}
+                            style={[styles.icon]}
+                        >
+                            <EvilIcons name="heart" size={30} color="#FFF" />
+                        </LinearGradient>
+                    </View>
+                    <View>
+                        <TouchableOpacity style={[styles.read]}>
 
+                            <LinearGradient
+                                colors={gradColors}
+                                useAngle={true}
+                                angle={145}
+                                angleCenter={{ x: 0.5, y: 0.5 }}
+                                style={[styles.read]}
+                            >
+
+                                <Text style={styles.txtRead}>READ NOW</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.icon}>
+                        <LinearGradient
+                            colors={['#4da7db', '#5bc6ff']}
+                            useAngle={true}
+                            angle={145}
+                            angleCenter={{ x: 0.5, y: 0.5 }}
+                            style={[styles.icon]}
+                        >
+                            <EvilIcons name="comment" size={30} color="#FFF" />
+                        </LinearGradient>
+                    </View>
+                </View>
+                <View style={styles.wrap}>
+                    <Text style={styles.status}>Status: <Text style={styles.normal}>{dataMemo.manga_status === 0 ? 'Continue' : 'Full'}</Text></Text>
+                    <View style={styles.wrapViews}>
+                        <EvilIcons name="eye" size={35} color="#5bc6ff" />
+                        <Text style={styles.normal}>{formatViews(dataMemo.views)}</Text>
+                    </View>
+                </View>
+                {/* <Text numberOfLines={2} style={styles.category}>Thể Loại : {showCategory()}</Text> */}
+            </View>
         </View>
     )
 }
 export default DetailComic;
 const styles = StyleSheet.create({
-    Container: {
+    containerComic: {
         flex: 1,
-        flexDirection: "column",
-        backgroundColor: '#e63946',
-        height: (height / 4),
     },
-    containerInfo: {
-        flexDirection: "row",
+    container_: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 15,
+    },
+    containerImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: SCREEN_WIDTH / 2,
+        height: SCREEN_WIDTH / 1.7,
+        backgroundColor: '#fff',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        borderRadius: 15,
+        top: 0,
+        position: 'absolute',
+        zIndex: 99999,
+    },
 
-    },
-    tabs: {
-        margin: 0,
-        backgroundColor: 'pink'
-    },
-    header: {
-        paddingHorizontal: 10,
-        backgroundColor: '#e63946',
-    },
-    nameComic: {
-        textAlign: "center",
-        fontSize: 18,
-        color: '#fff',
-        fontWeight: 'bold',
-        textTransform: 'uppercase'
-    },
-    imageLeft: {
-        height: height / 4.5,
-        width: width / 3,
-    },
     img: {
         width: "100%",
         height: "100%",
-        resizeMode: 'contain',
-        borderRadius: 5
+        borderRadius: 15,
+
+    },
+    action: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 15
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        borderRadius: 200,
+        backgroundColor: '#F92C2C',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 10,
+
+    },
+    contai: {
+        marginTop: 170,
+        width: '100%',
+        borderRadius: 40,
+        borderBottomRightRadius: 0,
+        borderBottomLeftRadius: 0,
+
     },
     nameAuthor: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 14
+        color: '#000',
+        fontSize: 14,
+        marginBottom: 10,
+        marginTop: 5,
+        textAlign: 'center',
     },
     status: {
-        color: '#fff',
+        color: '#5bc6ff',
+        fontSize: 15,
         fontWeight: 'bold',
-        fontSize: 14
     },
     category: {
-        color: '#fff',
-        fontWeight: 'bold',
+        color: '#000',
         fontSize: 14,
     },
     normal: {
         fontWeight: 'normal',
-
+        color: '#000',
+        fontSize: 14,
     },
-    contairight: {
-        width: width - (width / 3) - 30,
-        marginLeft: 10,
-        marginVertical: 20,
-        justifyContent: 'space-between',
-    },
-    appButtonContainer: {
-        elevation: 3,
-        backgroundColor: "#fff",
-        borderRadius: 150,
-        paddingVertical: 10,
-        width: '60%'
-    },
-    appButtonText: {
-        fontSize: 12,
-        color: "#e63946",
-        fontWeight: "bold",
-        alignSelf: "center",
-        textTransform: "uppercase"
-    },
-    loading: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    contai: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        backgroundColor: '#e63946'
-    },
-    contai_: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        left: 0,
-        zIndex: 999,
-        backgroundColor: '#fff',
-        elevation: 999,
-        alignSelf: "center",
-        borderTopColor: '#f1faee',
-        justifyContent: 'center',
-        borderTopWidth: 1
-    },
-    tab_: {
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        backgroundColor: '#eea71d',
-        justifyContent: 'space-between'
-    },
-    description_comic: {
-        flex: 1,
-        paddingVertical: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-    Chap_comic: {
-        flex: 1,
-        paddingVertical: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-    title: {
-        fontSize: 16,
-        color: '#fff'
-    },
-
-    appButtonContainer_: {
-        elevation: 2,
-        backgroundColor: "#e63946",
-        borderRadius: 150,
-        paddingVertical: 10,
-        width: width / 1.5
-    },
-    appButtonText_: {
-        fontSize: 12,
-        color: "#fff",
+    nameComic: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20,
         textAlign: 'center',
-        fontWeight: "bold",
-        alignSelf: "center",
-        textTransform: "uppercase"
+        marginTop: 80,
+        marginHorizontal: 10
     },
+    wrap: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+        paddingHorizontal: 20,
+        backgroundColor: '#fff',
+        borderColor: '#F4F6FD',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 1,
+
+    },
+    wrapViews: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderLeftWidth: 2,
+        width: '50%',
+        paddingVertical: 10,
+        borderColor: '#F4F6FD'
+    },
+    read: {
+        width: 150,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20
+    },
+    txtRead: {
+        color: '#fff'
+    }
 })

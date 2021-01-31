@@ -25,7 +25,7 @@ export default ({ active }: IconProps) => {
             />
             <Path
                fill={active ? Colors.primary : "none"}
-               stroke={active ? Colors.border : Colors.border}
+               stroke={active ? '#fff' : Colors.border}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={32}

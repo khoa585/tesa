@@ -26,7 +26,7 @@ export default ({
                 paddingTop: 5,
                 width: SCREEN_WIDTH / 5,
                 height: 55,
-                backgroundColor: '#fff',
+          
                 alignItems: 'center',
                 justifyContent: 'center'
             }}

@@ -24,9 +24,10 @@ const Header: FunctionComponent = () => {
                 </View>
                 <TouchableOpacity
                     activeOpacity={0.8}
+                    style={styles.icon}
                     onPress={() => navigation.navigate(screen.SEARCH_SCREEN)}
                 >
-                    <EvilIcons name="search" size={30} color="#fff" />
+                    <EvilIcons name="search" size={30} color="#000" />
                 </TouchableOpacity>
             </View>
         </>
@@ -84,5 +85,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color:'#fff'
+    },
+    icon:{
+        justifyContent:'center',
+        aspectRatio:1,
+        padding:2,
+        backgroundColor:'#fff',
+        borderRadius:2
     }
 })

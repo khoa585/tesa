@@ -5,8 +5,9 @@ import {
     View,
     Text,
     Dimensions,
-    Animated,
+    ActivityIndicator
 } from 'react-native';
+import RNPickerSelect from "react-native-picker-select";
 
 const windowHeight = Dimensions.get('window').height;
 const TabBarHeight = 160;
@@ -14,68 +15,65 @@ const HeaderHeight = windowHeight / 4;
 import { getListChapter } from '../../api/comic';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler'
-const TabScene = ({
-    onGetRef,
-    scrollY,
-    onScrollEndDrag,
-    onMomentumScrollEnd,
-    onMomentumScrollBegin,
-    id
-}: any) => {
-    const [loading, setLoading] = React.useState(true);
-    const [dataChap, setDataChap] = React.useState();
-    const dataChapMemo = React.useMemo(() => dataChap, [dataChap])
-    const navigation = useNavigation();
 
-    React.useEffect(() => {
-        getListChapter(id).then(result => {
-            if (result?.data?.status == "success") {
-                setDataChap(result?.data?.data)
-                setLoading(false);
-            }
-        }).then(error => console.log(error))
-    }, [])
-    const renderItem = ({ item, index }) => {
+type itemProps = {
+    commentCount: number
+    createdAt: string
+    index: number
+    name: string
+    __v: number
+    _id: string
+}
+type dataProps = {
+    data: itemProps[]
+}
+interface objProps {
+    label: string,
+    value: string,
+}
+const TabScene = ({ data, loading }: any) => {
 
-        return (
-            <RectButton key={item._id} >
-                <View style={styles.Chapter_}>
-                    <Text style={styles.name} >Chapter {item.index}</Text>
-                    <Text>{item.createdAt.split(/T.*/)[0]}</Text>
-                </View>
-            </RectButton>
-        )
-    }
+   
+
     return (
-        <Animated.FlatList
-            scrollToOverflowEnabled={true}
-            ref={onGetRef}
-            scrollEventThrottle={1}
-            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-                useNativeDriver: true,
-            })}
-            onMomentumScrollBegin={onMomentumScrollBegin}
-            onScrollEndDrag={onScrollEndDrag}
-            onMomentumScrollEnd={onMomentumScrollEnd}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-                paddingTop: HeaderHeight + TabBarHeight,
-                paddingHorizontal: 10,
-                minHeight: windowHeight - TabBarHeight,
-            }}
-            data={dataChapMemo}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item._id.toString()}
-        />
+        <View style={[styles.container]}>
+            {
+                loading ? (
+                    <View style={styles.loading}>
+                        <ActivityIndicator size="large" color="#000" />
+                    </View>
+                ) :
+                    data.data.map((item: itemProps, _: number) => {
+
+                        return (
+                            <RectButton key={item._id} >
+                                <View style={styles.Chapter_}>
+                                    <Text style={styles.name} >Chapter {item.index}</Text>
+                                    <Text>{item.createdAt.split(/T.*/)[0]}</Text>
+                                </View>
+                            </RectButton>
+                        )
+                    })
+            }
+        </View>
+
     );
 };
 export default React.memo(TabScene)
 
 const styles = StyleSheet.create({
     container: {
-
-        backgroundColor: '#fff'
+        flex: 1,
+        backgroundColor: '#fff',
+        // marginTop: 0,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
+        // elevation: 2
     },
     name: {
         fontSize: 16,
@@ -86,15 +84,46 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#5c6b73'
+        borderBottomWidth: 2,
+        borderColor: '#F4F6FD',
+        padding: 20,
     },
     loading: {
-
+        height: 200,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    containerTitl: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottomWidth: 2,
+        borderColor: '#F4F6FD',
+    },
 })
 
 
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 15,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+
+        borderRadius: 8,
+        color: 'black',
+        margin: 0,
+        paddingRight: 0, // to ensure the text is never behind the icon
+    },
+
+});

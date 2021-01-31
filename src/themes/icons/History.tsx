@@ -30,7 +30,7 @@ export default ({ active }: IconProps) => {
             <Circle cx={296} cy={392} r={24} />
             <Path
                 fill={active ? Colors.primary : "none"}
-                stroke={active ? Colors.border : Colors.border}
+                stroke={active ? '#fff' : Colors.border}
                 strokeLinejoin="round"
                 strokeWidth={32}
                 strokeLinecap="round"
@@ -38,7 +38,7 @@ export default ({ active }: IconProps) => {
             />
             <Path
                 fill={active ? Colors.primary : "none"}
-                stroke={active ? Colors.border : Colors.border}
+                stroke={active ? '#fff' : Colors.border}
                 strokeLinejoin="round"
                 strokeWidth={32}
                 d="M464 160H48"
