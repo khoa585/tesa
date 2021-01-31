@@ -4,44 +4,33 @@ import {
     StyleSheet,
     View,
     Text,
-    Dimensions,
     Platform
 } from 'react-native';
 import RNPickerSelect from "react-native-picker-select";
-
-const windowHeight = Dimensions.get('window').height;
-const TabBarHeight = 160;
-const HeaderHeight = windowHeight / 4;
-import { getListChapter } from '../../api/comic';
-import { useNavigation } from '@react-navigation/native';
-import { RectButton } from 'react-native-gesture-handler'
 import isEqual from 'react-fast-compare';
+import { DetailChapProps } from './DetailChap'
 
-type itemProps = {
-    commentCount: number
-    createdAt: string
-    index: number
-    name: string
-    __v: number
-    _id: string
-}
-type dataProps = {
-    data: itemProps[]
-}
 interface objProps {
     label: string,
     value: string,
 }
-const TitleChapter = ({ data, page, loading, _setPage }: any) => {
-    const [selectedValue, setSelectedValue] = React.useState([]);
 
+type TitleChapterProps = {
+    data: DetailChapProps | null,
+    page: string,
+    loading: boolean,
+    _setPage: (e: string) => void;
+}
 
+const TitleChapter = ({ data, page, loading, _setPage }: TitleChapterProps) => {
+
+    const [selectedValue, setSelectedValue] = React.useState<objProps[]>([]);
 
     React.useEffect(() => {
         (() => {
             if (data) {
-                let arr: any = []
-                for (var i = 1; i <= Math.ceil(data.numberResult / 20); i++) {
+                let arr: objProps[] = []
+                for (var i: number = 1; i <= Math.ceil(data.numberResult / 20); i++) {
                     let obj: objProps = {
                         label: i.toString(),
                         value: i.toString(),
@@ -72,15 +61,14 @@ const TitleChapter = ({ data, page, loading, _setPage }: any) => {
                 }}>Page: </Text>
                 <View style={{ width: '50%' }}>
                     <RNPickerSelect
-                        onValueChange={(value) => _setPage(value)}
+                        onValueChange={(value: string) => _setPage(value)}
                         placeholder={{ label: page.toString(), value: page.toString() }}
                         value={page.toString()}
                         items={selectedValue}
                         style={{
                             ...pickerSelectStyles,
-
                             iconContainer: {
-                                top: Platform.OS === 'android'? 25 : 14,
+                                top: Platform.OS === 'android' ? 25 : 14,
                                 right: 45,
                             },
                             placeholder: {

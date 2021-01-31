@@ -1,18 +1,22 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Header from './Header';
 import LinearGradient from 'react-native-linear-gradient';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH_No } from '../../constants'
 import { formatViews } from '../../common/stringHelper'
-const DetailComic = ({ dataMemo }) => {
+import { ItemComicProps } from '../MainHome/MainHome'
+
+type DetailComicProps = {
+    item: ItemComicProps | any
+}
+const DetailComic = ({ item }: DetailComicProps) => {
 
     const navigation = useNavigation();
     const [isDown, setDown] = React.useState<boolean>(false);
     const showCategory = React.useCallback(() => {
-        return dataMemo.category.map((item, index) => {
+        return item.category.map((item, index) => {
             return (
                 <Text key={index} style={styles.normal}>{item} - </Text>
             )
@@ -26,13 +30,13 @@ const DetailComic = ({ dataMemo }) => {
             <Header></Header>
             <View style={styles.container_}>
                 <View style={styles.containerImage}>
-                    <Image source={{ uri: dataMemo.image }}
+                    <Image source={{ uri: item.image }}
                         style={styles.img} />
                 </View>
             </View>
             <View style={styles.contai}>
-                <Text style={styles.nameComic}>{dataMemo.name}</Text>
-                <Text style={styles.nameAuthor}>{dataMemo.author.split(/\n/)}</Text>
+                <Text style={styles.nameComic}>{item.name}</Text>
+                <Text style={styles.nameAuthor}>{item.author.split(/\n/)}</Text>
                 <View style={styles.action}>
                     <View style={styles.icon}>
                         <LinearGradient
@@ -73,10 +77,10 @@ const DetailComic = ({ dataMemo }) => {
                     </View>
                 </View>
                 <View style={styles.wrap}>
-                    <Text style={styles.status}>Status: <Text style={styles.normal}>{dataMemo.manga_status === 0 ? 'Continue' : 'Full'}</Text></Text>
+                    <Text style={styles.status}>Status: <Text style={styles.normal}>{item.manga_status === 0 ? 'Continue' : 'Full'}</Text></Text>
                     <View style={styles.wrapViews}>
                         <EvilIcons name="eye" size={35} color="#5bc6ff" />
-                        <Text style={styles.normal}>{formatViews(dataMemo.views)}</Text>
+                        <Text style={styles.normal}>{formatViews(item.views)}</Text>
                     </View>
                 </View>
                 {/* <Text numberOfLines={2} style={styles.category}>Thể Loại : {showCategory()}</Text> */}
@@ -149,6 +153,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+        elevation: 2
     },
     contai: {
         marginTop: 186,
@@ -193,11 +198,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopWidth: 1,
         borderBottomWidth: 1,
+        marginBottom: 1,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
-        borderTopColor:'#D4D1FA',
-        borderBottomColor:'#D4D1FA'
-        // Platform.OS === 'android' ? 2 : 1,
+        borderTopColor: '#D4D1FA',
+        borderBottomColor: '#D4D1FA'
     },
     wrapViews: {
         flexDirection: 'row',
@@ -213,7 +218,8 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20
+        borderRadius: 20,
+        elevation: 2
     },
     txtRead: {
         color: '#fff'

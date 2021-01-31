@@ -7,8 +7,8 @@ import * as SCREEN from '../../../../constants/ScreenTypes';
 import isEqual from 'react-fast-compare';
 import { RectButton } from 'react-native-gesture-handler';
 import { SCREEN_WIDTH } from '../../../../constants'
-
-const Item = ({ item }) => {
+import { itemProps } from '..'
+const Item = ({ item }:itemProps) => {
     const navigation = useNavigation();
     const goToDetialComic = (id: string) => {
         navigation.navigate(SCREEN.DETIAL_COMIC_SCREEN, { item: item, id: id })
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: Platform.OS === 'android' ? 2 : 1,
         marginBottom: Platform.OS === 'android' ? 1 : 3,
-        marginLeft:Platform.OS === 'android' ? 1 : 3,
+        marginLeft: Platform.OS === 'android' ? 1 : 3,
     },
     imageRecommend: {
         width: "100%",
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor:  Platform.OS === 'android' ? '#000' : '#fff',
+        shadowColor: Platform.OS === 'android' ? '#000' : '#fff',
         shadowOffset: { width: 1, height: 1 },
-        shadowOpacity:  0.4,
+        shadowOpacity: 0.4,
         shadowRadius: Platform.OS === 'android' ? 3 : 2,
         elevation: Platform.OS === 'android' ? 4 : 1,
     },
@@ -88,14 +88,14 @@ const styles = StyleSheet.create({
     contaiItem: {
         justifyContent: 'space-between',
         height: '20%',
-        paddingHorizontal:15,
-        paddingBottom:10
+        paddingHorizontal: 15,
+        paddingBottom: 10
     },
     nameComic: {
-        paddingVertical: 5,
+        paddingVertical: 3,
         textAlign: "center",
         fontSize: 14,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     nameChap: {
         textAlign: "center",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 5,
+
 
     }
 })

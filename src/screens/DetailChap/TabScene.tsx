@@ -1,5 +1,6 @@
 
 import React from 'react';
+import isEqual from 'react-fast-compare';
 import {
     StyleSheet,
     View,
@@ -8,7 +9,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler'
-
+import { DetailChapProps } from './DetailChap'
 type itemProps = {
     commentCount: number
     createdAt: string
@@ -17,16 +18,14 @@ type itemProps = {
     __v: number
     _id: string
 }
-type dataProps = {
-    data: itemProps[]
-}
-interface objProps {
-    label: string,
-    value: string,
-}
-const TabScene = ({ data, loading }: any) => {
 
-   
+type TabSceneProps = {
+    data: DetailChapProps | null,
+    loading: boolean,
+}
+
+const TabScene = ({ data, loading }: TabSceneProps) => {
+
 
     return (
         <View style={[styles.container]}>
@@ -36,8 +35,7 @@ const TabScene = ({ data, loading }: any) => {
                         <ActivityIndicator size="large" color="#000" />
                     </View>
                 ) :
-                    data.data.map((item: itemProps, _: number) => {
-
+                    data?.data.map((item: itemProps, _: number) => {
                         return (
                             <RectButton key={item._id} >
                                 <View style={styles.Chapter_}>
@@ -49,10 +47,9 @@ const TabScene = ({ data, loading }: any) => {
                     })
             }
         </View>
-
     );
 };
-export default React.memo(TabScene)
+export default React.memo(TabScene,isEqual)
 
 const styles = StyleSheet.create({
     container: {

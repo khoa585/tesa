@@ -1,21 +1,22 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
 import { BlurView } from "@react-native-community/blur";
-import Header from './Header';
 import isEqual from 'react-fast-compare';
 import { SCREEN_HEIGHT } from '../../constants'
-const { height, width } = Dimensions.get("window");
-const Background = ({ dataMemo }) => {
+import { ItemComicProps } from '../MainHome/MainHome'
+
+type BackgroundProps = {
+    item : ItemComicProps | any
+}
+
+const Background = ({ item }: BackgroundProps) => {
 
     return (
         <View style={{ flex: 1, position: 'absolute', width: '100%', height: '100%' }}>
             <View style={styles.container}>
                 <Image
                     key={'blurryImage'}
-                    source={{ uri: dataMemo.image }}
+                    source={{ uri: item.image }}
                     style={styles.absolute}
                     resizeMode='cover'
                 />

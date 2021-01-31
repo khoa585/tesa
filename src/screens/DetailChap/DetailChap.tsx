@@ -34,15 +34,28 @@ export type RouterProps = {
         title: string
     }
 }
+
+export type ItemProps = {
+    commentCount: number,
+    createdAt: string,
+    index: number,
+    name: string,
+    __v: number,
+    _id: string,
+}
+
+export type DetailChapProps = {
+    data: ItemProps[],
+    numberResult: number
+}
+
 const DetailChap: FunctionComponent = () => {
-
-
 
     const router = useRoute<RootRouteProps<'DETIAL_COMIC_SCREEN'>>();
     const { item, id } = router.params;
     const [page, setPage] = React.useState<string>('1');
     const [loading, setLoading] = React.useState<boolean>(true);
-    const [data, setData] = React.useState<any>(null);
+    const [data, setData] = React.useState<DetailChapProps | null>(null);
 
     const _setLoading = (e: boolean) => {
         setLoading(e)
@@ -50,7 +63,6 @@ const DetailChap: FunctionComponent = () => {
     const _setPage = (e: string) => {
         setPage(e)
     }
-
 
     React.useEffect(() => {
         (async () => {
@@ -64,7 +76,7 @@ const DetailChap: FunctionComponent = () => {
                 _setLoading(false);
             }
         })()
-        return () => setData([])
+        return () => setData(null)
     }, [page])
 
     return (
@@ -75,9 +87,9 @@ const DetailChap: FunctionComponent = () => {
                     style={{ flex: 1 }}
                     stickyHeaderIndices={[3]}
                 >
-                    <Background {...{ dataMemo: item }}></Background>
-                    <DetailComic {...{ dataMemo: item }}></DetailComic>
-                    <DescriptComic {...{ data: item }}></DescriptComic>
+                    <Background {...{ item }} ></Background>
+                    <DetailComic {...{ item }}></DetailComic>
+                    <DescriptComic {...{ item }}></DescriptComic>
                     <TitleChapter {...{ data, page, loading, _setPage }}></TitleChapter>
                     <TabScene {...{ data, loading }}></TabScene>
                 </ScrollView>

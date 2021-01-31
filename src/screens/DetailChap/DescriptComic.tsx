@@ -4,13 +4,18 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const windowHeight = Dimensions.get('window').height;
 const TabBarHeight = 120;
 const HeaderHeight = windowHeight / 4;
-function DescriptComic({ data }) {
+import { ItemComicProps } from '../MainHome/MainHome'
+
+type DescriptComicProps = {
+    item: ItemComicProps | any
+}
+function DescriptComic({ item }: DescriptComicProps) {
     const [txtdescript, setDes] = React.useState<boolean>(false)
     return (
         <View style={styles.container}>
 
             <Text style={{ fontSize: 20, color: '#5c6b73', fontWeight: 'bold' }}>Description</Text>
-            <Text numberOfLines={txtdescript ? 1000 : 3} style={styles.name}>{data.description === '' ? 'Đọc sẽ rõ...' : data.description}</Text>
+            <Text numberOfLines={txtdescript ? 1000 : 3} style={styles.name}>{item.description === '' ? 'Đọc sẽ rõ...' : item.description}</Text>
             {
                 !txtdescript ? (<TouchableOpacity
                     onPress={() => setDes(!txtdescript)}

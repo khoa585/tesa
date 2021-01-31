@@ -1,21 +1,31 @@
 import React from 'react';
-import { Text, View, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
 import Item from './Item';
-import { useNavigation } from '@react-navigation/native';
 import * as SCREEN from '../../../constants/ScreenTypes';
 import { SCREEN_WIDTH } from '../../../constants'
-const { width } = Dimensions.get('window');
-const ComicHot = ({ listComic, loading, children }) => {
-    const navigation = useNavigation();
-    const renderItem = React.useCallback(({ item }) => <Item item={item} key={item._id}></Item>, [])
-    const keyExtractor = React.useCallback((item) => item._id.toString(), [])
+import {ItemComicProps} from '../MainHome'
+
+type ComicHotProps = {
+    listComic: ItemComicProps[],
+    loading: boolean,
+    children: string
+}
+
+export type itemProps = {
+    item: ItemComicProps
+}
+
+const ComicHot = ({ listComic, loading, children }: ComicHotProps) => {
+
+    const renderItem = React.useCallback(({ item }: itemProps) => <Item item={item} key={item._id}></Item>, [])
+    const keyExtractor = React.useCallback((item: ItemComicProps) => item._id.toString(), [])
 
     const getItemLayout = React.useCallback((_, index: number) => ({
         length: SCREEN_WIDTH * 0.6,
         offset: (SCREEN_WIDTH * 0.6) * index,
         index
     }), [])
-    
+
     return (
         <View style={styles.container}>
             <View style={styles.headerTitle}>
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     },
     loading: {
         flex: 1,
-        height: width,
+        height: SCREEN_WIDTH,
         alignItems: 'center',
         justifyContent: 'center',
     },

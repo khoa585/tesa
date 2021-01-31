@@ -6,18 +6,41 @@ import Background from './Background';
 import isEqual from 'react-fast-compare';
 import ComicHot from './ComicHot';
 import { getListTypeCommic } from './../../api/comic';
-import ComicNews from './ComicNews';
+
+
+export type ItemComicProps = {
+    author: string,
+    category: any,
+    chapter_update: string,
+    chapter_update_count: number,
+    commentCount: number,
+    createdAt: string,
+    description: string,
+    devices:any,
+    enable: true,
+    first_chapter: string,
+    image: string,
+    last_chapter: string,
+    manga_status: number,
+    name: string,
+    updatedAt: string,
+    url: string,
+    views: number,
+    __v: number,
+    _id: string,
+}
+
 
 type listComicProps = {
-    listComicHot: [],
-    listComicHUpdate: []
+    listComicHot: ItemComicProps[],
+    listComicHUpdate: ItemComicProps[]
 }
 
 const MainHome = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
     const [refreshing, setRefreshing] = React.useState<boolean>(false);
     const [listComic, setListComic] = React.useState<listComicProps | null>(null);
-   
+
     React.useEffect(() => {
         (async () => {
             fetchData()
@@ -35,7 +58,6 @@ const MainHome = () => {
     const fetchData = async () => {
         setLoading(true);
         const [resultListHot, resultListUpdate] = await Promise.all([getListTypeCommic(1, 10, 0), getListTypeCommic(1, 10, 1)])
-
         if (resultListHot.data.status === "success" && resultListHot.data.code === 200) {
             setListComic({
                 listComicHot: resultListHot.data?.data,
@@ -66,7 +88,7 @@ const MainHome = () => {
                 <Background></Background>
                 <TabActionBar></TabActionBar>
                 <ComicHot {...{ listComic: listComic ? listComic.listComicHot : [], loading }}>Truyện đọc nhiều nhất</ComicHot>
-                <ComicNews {...{ listComic: listComic ? listComic.listComicHUpdate : [], loading }}>Truyện mới nhất</ComicNews>
+                <ComicHot {...{ listComic: listComic ? listComic.listComicHUpdate : [], loading }}>Truyện mới nhất</ComicHot>
             </ScrollView>
         </View>
     )
