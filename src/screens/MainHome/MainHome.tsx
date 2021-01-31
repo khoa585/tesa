@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import TabActionBar from './TabActionBar'
 import Header from './Header';
@@ -36,7 +36,7 @@ type listComicProps = {
     listComicHUpdate: ItemComicProps[]
 }
 
-const MainHome = () => {
+const MainHome: FunctionComponent = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
     const [refreshing, setRefreshing] = React.useState<boolean>(false);
     const [listComic, setListComic] = React.useState<listComicProps | null>(null);

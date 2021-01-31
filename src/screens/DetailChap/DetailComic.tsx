@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -11,18 +11,11 @@ import { ItemComicProps } from '../MainHome/MainHome'
 type DetailComicProps = {
     item: ItemComicProps | any
 }
-const DetailComic = ({ item }: DetailComicProps) => {
+const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
 
     const navigation = useNavigation();
     const [isDown, setDown] = React.useState<boolean>(false);
-    const showCategory = React.useCallback(() => {
-        return item.category.map((item, index) => {
-            return (
-                <Text key={index} style={styles.normal}>{item} - </Text>
-            )
-        })
-    }, [])
-
+ 
     const gradColors = isDown ? ['#4da7db', '#5bc6ff'] : ['#5bc6ff', '#4da7db'];
     return (
         <View style={styles.containerComic}>
@@ -156,7 +149,7 @@ const styles = StyleSheet.create({
         elevation: 2
     },
     contai: {
-        marginTop: 186,
+        marginTop: 180,
         width: '100%',
         borderRadius: 40,
         borderBottomRightRadius: 0,

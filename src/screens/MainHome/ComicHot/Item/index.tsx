@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Text, View, Image, StyleSheet, Platform } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { formatViews } from '../../../../common/stringHelper';
@@ -8,7 +8,7 @@ import isEqual from 'react-fast-compare';
 import { RectButton } from 'react-native-gesture-handler';
 import { SCREEN_WIDTH } from '../../../../constants'
 import { itemProps } from '..'
-const Item = ({ item }:itemProps) => {
+const Item: FunctionComponent<itemProps> = ({ item }) => {
     const navigation = useNavigation();
     const goToDetialComic = (id: string) => {
         navigation.navigate(SCREEN.DETIAL_COMIC_SCREEN, { item: item, id: id })

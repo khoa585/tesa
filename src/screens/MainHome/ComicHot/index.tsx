@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity, FlatList } from 'react-native';
 import Item from './Item';
 import * as SCREEN from '../../../constants/ScreenTypes';
@@ -15,7 +15,7 @@ export type itemProps = {
     item: ItemComicProps
 }
 
-const ComicHot = ({ listComic, loading, children }: ComicHotProps) => {
+const ComicHot: FunctionComponent<ComicHotProps> = ({ listComic, loading, children }) => {
 
     const renderItem = React.useCallback(({ item }: itemProps) => <Item item={item} key={item._id}></Item>, [])
     const keyExtractor = React.useCallback((item: ItemComicProps) => item._id.toString(), [])

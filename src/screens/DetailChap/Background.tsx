@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import { BlurView } from "@react-native-community/blur";
 import isEqual from 'react-fast-compare';
@@ -6,10 +6,10 @@ import { SCREEN_HEIGHT } from '../../constants'
 import { ItemComicProps } from '../MainHome/MainHome'
 
 type BackgroundProps = {
-    item : ItemComicProps | any
+    item: ItemComicProps | any
 }
 
-const Background = ({ item }: BackgroundProps) => {
+const Background: FunctionComponent<BackgroundProps> = ({ item }) => {
 
     return (
         <View style={{ flex: 1, position: 'absolute', width: '100%', height: '100%' }}>

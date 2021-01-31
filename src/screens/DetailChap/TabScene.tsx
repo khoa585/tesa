@@ -1,11 +1,10 @@
 
-import React from 'react';
+import React,{FunctionComponent} from 'react';
 import isEqual from 'react-fast-compare';
 import {
     StyleSheet,
     View,
     Text,
-    Dimensions,
     ActivityIndicator
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler'
@@ -24,7 +23,7 @@ type TabSceneProps = {
     loading: boolean,
 }
 
-const TabScene = ({ data, loading }: TabSceneProps) => {
+const TabScene:FunctionComponent<TabSceneProps> = ({ data, loading }) => {
 
 
     return (

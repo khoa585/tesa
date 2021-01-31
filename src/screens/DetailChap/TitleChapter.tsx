@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
     StyleSheet,
     View,
@@ -22,7 +22,7 @@ type TitleChapterProps = {
     _setPage: (e: string) => void;
 }
 
-const TitleChapter = ({ data, page, loading, _setPage }: TitleChapterProps) => {
+const TitleChapter: FunctionComponent<TitleChapterProps> = ({ data, page, loading, _setPage }) => {
 
     const [selectedValue, setSelectedValue] = React.useState<objProps[]>([]);
 

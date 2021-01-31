@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import isEqual from 'react-fast-compare';
 import {
     View,
     StyleSheet,
-    Dimensions,
     Image
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { SCREEN_WIDTH } from '../../constants/index'
-const { height } = Dimensions.get('window');
-export default function Slide() {
+const Slide: FunctionComponent = () => {
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
@@ -33,12 +32,12 @@ export default function Slide() {
         </View>
     );
 }
-
+export default React.memo(Slide, isEqual)
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom:10
+        marginBottom: 10
     },
     wrapper: {
         height: SCREEN_WIDTH / 3,
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        
+
     },
     slide2: {
         flex: 1,

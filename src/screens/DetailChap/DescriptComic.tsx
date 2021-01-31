@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import isEqual from 'react-fast-compare';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-const windowHeight = Dimensions.get('window').height;
-const TabBarHeight = 120;
-const HeaderHeight = windowHeight / 4;
 import { ItemComicProps } from '../MainHome/MainHome'
 
 type DescriptComicProps = {
     item: ItemComicProps | any
 }
-function DescriptComic({ item }: DescriptComicProps) {
+const DescriptComic: FunctionComponent<DescriptComicProps> = ({ item }) => {
     const [txtdescript, setDes] = React.useState<boolean>(false)
     return (
         <View style={styles.container}>
@@ -27,14 +25,12 @@ function DescriptComic({ item }: DescriptComicProps) {
                     <Text style={{ color: '#3a9ebb' }}>Collapse</Text>
                 </TouchableOpacity>)
             }
-
-
         </View>
     )
 }
 
 
-export default React.memo(DescriptComic)
+export default React.memo(DescriptComic,isEqual)
 
 const styles = StyleSheet.create({
     container: {

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
-const { height, width } = Dimensions.get("window");
-const Header = () => {
+const Header: FunctionComponent = () => {
 
     const navigation = useNavigation();
     return (
