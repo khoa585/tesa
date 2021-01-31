@@ -5,7 +5,7 @@ import {
     View,
     Text,
     Dimensions,
-    ActivityIndicator
+    Platform
 } from 'react-native';
 import RNPickerSelect from "react-native-picker-select";
 
@@ -80,9 +80,8 @@ const TitleChapter = ({ data, page, loading, _setPage }: any) => {
                             ...pickerSelectStyles,
 
                             iconContainer: {
-                                top: 25,
+                                top: Platform.OS === 'android'? 25 : 14,
                                 right: 45,
-
                             },
                             placeholder: {
                                 color: '#5bc6ff',
@@ -124,8 +123,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomWidth: 2,
-        borderColor: '#F4F6FD',
+        borderBottomWidth: 1,
+        borderColor: '#D4D1FA',
         zIndex: 999,
         backgroundColor: '#fff'
     },
@@ -135,13 +134,13 @@ const styles = StyleSheet.create({
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        borderWidth: 1,
+        paddingVertical: 8,
+        paddingHorizontal: 8,
+
         borderColor: 'gray',
         borderRadius: 4,
         color: 'black',
-        paddingRight: 30, // to ensure the text is never behind the icon
+        paddingRight: 0, // to ensure the text is never behind the icon
     },
     inputAndroid: {
         fontSize: 15,

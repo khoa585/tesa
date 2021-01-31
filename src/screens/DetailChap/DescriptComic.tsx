@@ -36,15 +36,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
-        borderColor: '#F4F6FD',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: '#D4D1FA',
     },
     name: {
         fontSize: 16,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, Platform } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { formatViews } from '../../../../common/stringHelper';
 import { useNavigation } from '@react-navigation/native';
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
-        elevation: 2,
-        marginBottom: 1,
-        marginLeft:1
+        elevation: Platform.OS === 'android' ? 2 : 1,
+        marginBottom: Platform.OS === 'android' ? 1 : 3,
+        marginLeft:Platform.OS === 'android' ? 1 : 3,
     },
     imageRecommend: {
         width: "100%",
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#000',
+        shadowColor:  Platform.OS === 'android' ? '#000' : '#fff',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity:  0.4,
-        shadowRadius: 3,
-        elevation: 4,
+        shadowRadius: Platform.OS === 'android' ? 3 : 2,
+        elevation: Platform.OS === 'android' ? 4 : 1,
     },
     imageLeft: {
         justifyContent: 'center',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
-        elevation: 9,
+        elevation: 2,
 
     },
     contaiItem: {
@@ -92,9 +92,10 @@ const styles = StyleSheet.create({
         paddingBottom:10
     },
     nameComic: {
-        paddingTop: 5,
+        paddingVertical: 5,
         textAlign: "center",
-        fontSize: 12
+        fontSize: 14,
+        fontWeight:'bold'
     },
     nameChap: {
         textAlign: "center",

@@ -15,6 +15,7 @@ const ComicHot = ({ listComic, loading, children }) => {
         offset: (SCREEN_WIDTH * 0.6) * index,
         index
     }), [])
+    
     return (
         <View style={styles.container}>
             <View style={styles.headerTitle}>

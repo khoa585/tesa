@@ -124,7 +124,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 15
+        marginBottom: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 2,
     },
     icon: {
         width: 40,
@@ -134,10 +142,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 10,
-
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     contai: {
-        marginTop: 170,
+        marginTop: 186,
         width: '100%',
         borderRadius: 40,
         borderBottomRightRadius: 0,
@@ -177,29 +191,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
-        borderColor: '#F4F6FD',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 1,
-
+        borderTopColor:'#D4D1FA',
+        borderBottomColor:'#D4D1FA'
+        // Platform.OS === 'android' ? 2 : 1,
     },
     wrapViews: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderLeftWidth: 2,
+        borderLeftWidth: 1,
         width: '50%',
         paddingVertical: 10,
-        borderColor: '#F4F6FD'
+        borderColor: '#D4D1FA'
     },
     read: {
         width: 150,

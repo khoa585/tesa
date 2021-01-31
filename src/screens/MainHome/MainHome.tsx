@@ -4,17 +4,20 @@ import TabActionBar from './TabActionBar'
 import Header from './Header';
 import Background from './Background';
 import isEqual from 'react-fast-compare';
-import LinearGradient from 'react-native-linear-gradient';
 import ComicHot from './ComicHot';
 import { getListTypeCommic } from './../../api/comic';
 import ComicNews from './ComicNews';
 
+type listComicProps = {
+    listComicHot: [],
+    listComicHUpdate: []
+}
 
 const MainHome = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
     const [refreshing, setRefreshing] = React.useState<boolean>(false);
-    const [listComic, setListComic] = React.useState<any>(null);
-
+    const [listComic, setListComic] = React.useState<listComicProps | null>(null);
+   
     React.useEffect(() => {
         (async () => {
             fetchData()
@@ -51,15 +54,14 @@ const MainHome = () => {
         fetchData()
         setRefreshing(false)
     }
+
     return (
         <View style={styles.container}>
-
             <ScrollView
                 scrollEventThrottle={1}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }>
-
                 <Header></Header>
                 <Background></Background>
                 <TabActionBar></TabActionBar>

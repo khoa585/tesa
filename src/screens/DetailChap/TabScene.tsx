@@ -7,13 +7,6 @@ import {
     Dimensions,
     ActivityIndicator
 } from 'react-native';
-import RNPickerSelect from "react-native-picker-select";
-
-const windowHeight = Dimensions.get('window').height;
-const TabBarHeight = 160;
-const HeaderHeight = windowHeight / 4;
-import { getListChapter } from '../../api/comic';
-import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler'
 
 type itemProps = {
@@ -65,15 +58,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        // marginTop: 0,
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 2,
-        // },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 3.84,
-        // elevation: 2
+
     },
     name: {
         fontSize: 16,
@@ -84,12 +69,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
-        borderBottomWidth: 2,
-        borderColor: '#F4F6FD',
+        borderBottomWidth: 1,
+        borderColor: '#D4D1FA',
         padding: 20,
     },
     loading: {
-        height: 200,
+        height: 100,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -97,8 +82,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomWidth: 2,
-        borderColor: '#F4F6FD',
+        borderBottomWidth: 1,
+        borderColor: '#D4D1FA',
     },
 })
 
@@ -119,7 +104,6 @@ const pickerSelectStyles = StyleSheet.create({
         paddingVertical: 8,
         borderWidth: 0.5,
         borderColor: 'purple',
-
         borderRadius: 8,
         color: 'black',
         margin: 0,
