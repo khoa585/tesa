@@ -70,8 +70,8 @@ export default class App extends Component {
       count: 0
     }
     this.scrollX = 0;
-  
-    
+
+
     this.offset = new Animated.Value(0);
     this.scrollTo = this.scrollTo.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -79,7 +79,7 @@ export default class App extends Component {
     // Listener to call the scrollToOffset function
     this.offset.addListener(this.scrollTo);
 
-  
+
   }
 
   _scroller() {
@@ -104,16 +104,15 @@ export default class App extends Component {
 
   handleScroll(event) {
     // Save the x (horizontal) value each time a scroll occurs
-    this.scrollX = event.nativeEvent.contentOffset.x;
-    if (event.nativeEvent.contentOffset.x > 300) {
+    if (event.nativeEvent.contentOffset.y < this.scrollX) {
       this.scrollX = 0
       this.setState({
         count: 1
       })
-
-    
     }
- 
+    this.scrollX = event.nativeEvent.contentOffset.y;
+
+
   }
 
   componentDidMount() {
@@ -145,7 +144,7 @@ export default class App extends Component {
           data={this.state.link}
           keyExtractor={this._keyExtractor.bind(this)}
           renderItem={this._renderItem.bind(this)}
-          horizontal={true}
+
           flatListRef={React.createRef()}
           ref={el => this.carousel = el}
           onScroll={this.handleScroll}
