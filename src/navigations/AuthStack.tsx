@@ -20,9 +20,10 @@ export default () => {
     <Tab.Navigator
       tabBar={props => <NavigationBar {...props} />}
       tabBarOptions={tabBarOptions}
+      
     >
       <Tab.Screen
-        name={screen.MAINHOME_SCREEN}
+        name={screen.MAIN_HOME_SCREEN}
         component={MainHome} />
       <Tab.Screen
         name={screen.CATEGORY_SCREEN}

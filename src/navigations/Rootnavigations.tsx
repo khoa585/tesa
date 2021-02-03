@@ -19,8 +19,8 @@ const navigationOptions: StackNavigationOptions = {
 export default () => {
     return (
         <NavigationContainer ref={navigationRef} >
-            <Stack.Navigator screenOptions={navigationOptions} initialRouteName={screen.MAINHOME_SCREEN} >
-                <Stack.Screen name={screen.MAINHOME_SCREEN} component={AuthStack} />
+            <Stack.Navigator screenOptions={navigationOptions} initialRouteName={screen.MAIN_HOME_SCREEN} >
+                <Stack.Screen name={screen.MAIN_HOME_SCREEN} component={AuthStack} />
                 <Stack.Screen name={screen.SEARCH_SCREEN} component={Search} />
                 <Stack.Screen name={screen.DETIAL_COMIC_SCREEN} component={DetailChap} />
                 <Stack.Screen name={screen.DETIAL_CHAPTER} component={ReadComic} />
