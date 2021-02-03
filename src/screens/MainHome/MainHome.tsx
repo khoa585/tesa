@@ -46,10 +46,7 @@ const MainHome: FunctionComponent = () => {
             fetchData()
         })()
         return () => {
-            setListComic({
-                listComicHot: [],
-                listComicHUpdate: []
-            })
+            setListComic(null)
             setRefreshing(false)
             setLoading(false)
         }
@@ -69,10 +66,7 @@ const MainHome: FunctionComponent = () => {
 
     const onRefresh = () => {
         setRefreshing(true);
-        setListComic({
-            listComicHot: [],
-            listComicHUpdate: []
-        })
+        setListComic(null)
         fetchData()
         setRefreshing(false)
     }

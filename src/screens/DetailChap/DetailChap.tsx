@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, Text, Image, ActivityIndicator, Animated, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { View, StyleSheet, Text, StatusBar, ActivityIndicator, Animated, ScrollView } from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import { getDetialComic, getListChapter } from './../../api/comic';
 import * as screen from './../../constants/ScreenTypes';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -11,7 +11,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH_No } from '../../constants'
 import DescriptComic from './DescriptComic'
 import TabScene from './TabScene'
-import { RouteProp } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const BACKDROP_HEIGHT = SCREEN_HEIGHT * 0.65;
 export const HeaderHeight = SCREEN_HEIGHT / 3
@@ -81,8 +80,8 @@ const DetailChap: FunctionComponent = () => {
 
     return (
         <>
-
             <View style={styles.container}>
+                <StatusBar translucent backgroundColor="transparent" />
                 <ScrollView
                     style={{ flex: 1 }}
                     stickyHeaderIndices={[3]}
@@ -94,9 +93,6 @@ const DetailChap: FunctionComponent = () => {
                     <TabScene {...{ data, loading }}></TabScene>
                 </ScrollView>
             </View>
-
-
-
         </>
     )
 }

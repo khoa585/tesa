@@ -8,6 +8,7 @@ import MainHome from '../screens/MainHome';
 import Search from '../screens/Search';
 import AuthStack from './AuthStack';
 import DetailChap from '../screens/DetailChap';
+import ReadComic from '../screens/ReadComic';
 
 
 const navigationOptions: StackNavigationOptions = {
@@ -22,6 +23,7 @@ export default () => {
                 <Stack.Screen name={screen.MAINHOME_SCREEN} component={AuthStack} />
                 <Stack.Screen name={screen.SEARCH_SCREEN} component={Search} />
                 <Stack.Screen name={screen.DETIAL_COMIC_SCREEN} component={DetailChap} />
+                <Stack.Screen name={screen.DETIAL_CHAPTER} component={ReadComic} />
             </Stack.Navigator>
         </NavigationContainer>
     )

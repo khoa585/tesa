@@ -1,5 +1,5 @@
 
-import React,{FunctionComponent} from 'react';
+import React, { FunctionComponent } from 'react';
 import isEqual from 'react-fast-compare';
 import {
     StyleSheet,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler'
 import { DetailChapProps } from './DetailChap'
+import { useNavigation } from '@react-navigation/native';
+import * as SCREEN from '../../constants/ScreenTypes'
 type itemProps = {
     commentCount: number
     createdAt: string
@@ -23,8 +25,8 @@ type TabSceneProps = {
     loading: boolean,
 }
 
-const TabScene:FunctionComponent<TabSceneProps> = ({ data, loading }) => {
-
+const TabScene: FunctionComponent<TabSceneProps> = ({ data, loading }) => {
+    const navigation = useNavigation();
 
     return (
         <View style={[styles.container]}>
@@ -36,7 +38,9 @@ const TabScene:FunctionComponent<TabSceneProps> = ({ data, loading }) => {
                 ) :
                     data?.data.map((item: itemProps, _: number) => {
                         return (
-                            <RectButton key={item._id} >
+                            <RectButton key={item._id}
+                                onPress={() => navigation.navigate(SCREEN.DETIAL_CHAPTER, { id: item._id })}
+                            >
                                 <View style={styles.Chapter_}>
                                     <Text style={styles.name} >Chapter {item.index}</Text>
                                     <Text>{item.createdAt.split(/T.*/)[0]}</Text>
@@ -48,7 +52,7 @@ const TabScene:FunctionComponent<TabSceneProps> = ({ data, loading }) => {
         </View>
     );
 };
-export default React.memo(TabScene,isEqual)
+export default React.memo(TabScene, isEqual)
 
 const styles = StyleSheet.create({
     container: {
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         borderBottomWidth: 1,
-        borderColor: '#D4D1FA',
+        borderColor: '#5bc6ff',
         padding: 20,
     },
     loading: {
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottomWidth: 1,
-        borderColor: '#D4D1FA',
+        borderColor: '#5bc6ff',
     },
 })
 

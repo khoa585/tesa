@@ -1,11 +1,11 @@
 import { Dimensions, PixelRatio } from "react-native";
-
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 const { width } = Dimensions.get("window");
 
 export interface IconProps {
   active?: boolean;
 }
-
+export const STATUS_BAR_HEIGHT: number = getStatusBarHeight()
 const numberOfIcons = 4.5;
 const horizontalPadding = 60;
 export const DURATION = 450;

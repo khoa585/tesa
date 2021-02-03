@@ -1,17 +1,19 @@
 import React, { FunctionComponent } from 'react'
 import isEqual from 'react-fast-compare';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ItemComicProps } from '../MainHome/MainHome'
 
 type DescriptComicProps = {
     item: ItemComicProps | any
 }
+
 const DescriptComic: FunctionComponent<DescriptComicProps> = ({ item }) => {
+    
     const [txtdescript, setDes] = React.useState<boolean>(false)
+
     return (
         <View style={styles.container}>
-
             <Text style={{ fontSize: 20, color: '#5c6b73', fontWeight: 'bold' }}>Description</Text>
             <Text numberOfLines={txtdescript ? 1000 : 3} style={styles.name}>{item.description === '' ? 'Đọc sẽ rõ...' : item.description}</Text>
             {
@@ -28,8 +30,6 @@ const DescriptComic: FunctionComponent<DescriptComicProps> = ({ item }) => {
         </View>
     )
 }
-
-
 export default React.memo(DescriptComic,isEqual)
 
 const styles = StyleSheet.create({
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fff',
         borderBottomWidth: 1,
-        borderBottomColor: '#D4D1FA',
+        borderBottomColor: '#5bc6ff',
     },
     name: {
         fontSize: 16,

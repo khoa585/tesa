@@ -15,7 +15,7 @@ const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
 
     const navigation = useNavigation();
     const [isDown, setDown] = React.useState<boolean>(false);
- 
+
     const gradColors = isDown ? ['#4da7db', '#5bc6ff'] : ['#5bc6ff', '#4da7db'];
     return (
         <View style={styles.containerComic}>
@@ -76,7 +76,6 @@ const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
                         <Text style={styles.normal}>{formatViews(item.views)}</Text>
                     </View>
                 </View>
-                {/* <Text numberOfLines={2} style={styles.category}>Thể Loại : {showCategory()}</Text> */}
             </View>
         </View>
     )
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
         elevation: 2
     },
     contai: {
-        marginTop: 180,
+        marginTop: SCREEN_HEIGHT / 4.5,
         width: '100%',
         borderRadius: 40,
         borderBottomRightRadius: 0,
@@ -194,8 +193,8 @@ const styles = StyleSheet.create({
         marginBottom: 1,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
-        borderTopColor: '#D4D1FA',
-        borderBottomColor: '#D4D1FA'
+        borderTopColor: '#5bc6ff',
+        borderBottomColor: '#5bc6ff'
     },
     wrapViews: {
         flexDirection: 'row',
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
         width: '50%',
         paddingVertical: 10,
-        borderColor: '#D4D1FA'
+        borderColor: '#5bc6ff'
     },
     read: {
         width: 150,
