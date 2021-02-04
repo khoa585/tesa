@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Dimensions, ActivityIndicator, Animated, FlatList, StatusBar } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const { height, width } = Dimensions.get("window");
 import { getDetailChapter } from './../../api/comic'
 import { makeUserName } from './../../common/stringHelper';
@@ -32,7 +32,7 @@ export default function Footer({ translateYFooter, beforeChapter, afterChapter, 
                     <TouchableOpacity
                         onPress={() => _setModalVisible(true)}
                     >
-                        <FontAwesome5 name={"angle-left"} size={35} color={"#ffffff"} />
+                        <Ionicons name="settings-outline" size={30} color={"#ffffff"} />
                     </TouchableOpacity>
                 </View>
                 <View >

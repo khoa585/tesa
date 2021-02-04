@@ -33,7 +33,7 @@ const TabScene: FunctionComponent<TabSceneProps> = ({ data, loading }) => {
             {
                 loading ? (
                     <View style={styles.loading}>
-                        <ActivityIndicator size="large" color="#000" />
+                        <ActivityIndicator size="small" color="#000" />
                     </View>
                 ) :
                     data?.data.map((item: itemProps, _: number) => {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     loading: {
-        height: 100,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },

@@ -10,16 +10,14 @@ import {
     TouchableWithoutFeedback
 } from "react-native";
 const { width, height } = Dimensions.get('window')
+import {SCREEN_HEIGHT} from './../../constants'
 import Orientation from 'react-native-orientation';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
-const Modals = ({ modalVisible, _setModalVisible }) => {
-    const [isEnabled, setIsEnabled] = React.useState(false);
-    const toggleSwitch = () => {
-        setIsEnabled(previousState => !previousState);
-        _setModalVisible(false)
-    }
+const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) => {
+
+
     return (
         <Modal
             animationType="fade"
@@ -37,7 +35,7 @@ const Modals = ({ modalVisible, _setModalVisible }) => {
             <View style={{
                 position: 'absolute',
                 width: '100%',
-                height: '20%',
+                height: SCREEN_HEIGHT / 3,
                 right: '0%',
                 bottom: '0%',
                 backgroundColor: "white",
@@ -56,7 +54,7 @@ const Modals = ({ modalVisible, _setModalVisible }) => {
                         <Text style={styles.txt}>Turn</Text>
                         <View style={styles.Touchable}>
                             <TouchableWithoutFeedback
-                                onPress={() =>    Orientation.lockToPortrait()}
+                                onPress={() => Orientation.lockToPortrait()}
                             >
                                 <Ionicons style={styles.icon} name="phone-portrait-outline" size={30}></Ionicons>
                             </TouchableWithoutFeedback>
@@ -64,7 +62,7 @@ const Modals = ({ modalVisible, _setModalVisible }) => {
                         </View>
                         <View style={styles.Touchable}>
                             <TouchableWithoutFeedback
-                                 onPress={() => Orientation.lockToLandscapeLeft()}
+                                onPress={() => Orientation.lockToLandscapeLeft()}
                             >
                                 <Ionicons style={styles.icon} name="phone-landscape-outline" size={30}></Ionicons>
 
@@ -78,7 +76,7 @@ const Modals = ({ modalVisible, _setModalVisible }) => {
                             trackColor={{ false: "#767577", true: "#81b0ff" }}
                             thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
+                            onValueChange={_toggleSwitch}
                             value={isEnabled}
                         />
 

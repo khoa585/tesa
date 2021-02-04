@@ -11,7 +11,7 @@ import * as SCREEN from './../../constants/ScreenTypes';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import Modals from './Modals';
 import Footer from './Footer';
-
+import ListImage from './ListImage';
 export type RootStackParamList = {
     DETIAL_CHAPTER: { id: 'id' };
 };
@@ -26,6 +26,7 @@ export type RouterProps = {
         title: string
     }
 }
+
 export default function ReadComic() {
 
     const router = useRoute<RootRouteProps<'DETIAL_CHAPTER'>>();
@@ -39,61 +40,34 @@ export default function ReadComic() {
     const [afterChapter, setAfterChapter] = useState(null);
     const scrollY = new Animated.Value(0);
     const scrollYFooter = new Animated.Value(0);
-    const [currentOrientation, setCurrentOrientation] = useState('');
-    let offset = new Animated.Value(0)
     const diffClamp = Animated.diffClamp(scrollY, 0, height / 9.5)
     const translateY = diffClamp.interpolate({
         inputRange: [0, height / 9.5],
         outputRange: [0, -(height / 9.5)]
     })
+
+    const [isEnabled, setIsEnabled] = React.useState(false);
     const diffClampFooter = Animated.diffClamp(scrollYFooter, 0, height / 12)
+    const [isOffset, setisOffset] = useState(true);
     const translateYFooter = diffClampFooter.interpolate({
         inputRange: [0, height / 12],
         outputRange: [0, height / 12]
     })
-    let FlatListRef = React.useRef<any>(null);
-    let scrollX =100
+    const _setisOffset = (e: boolean) => {
+        setisOffset(e)
+    }
+    const _toggleSwitch = (e: boolean) => {
+        setIsEnabled(e => !e);
+        setisOffset(true)
+        _setModalVisible(false)
+    }
+
+    const _setIsEnabled = (e: boolean) => {
+        setIsEnabled(e);
+    }
+
     let _setModalVisible = (e: boolean) => {
         setModalVisible(e)
-    }
-    let CurrentSlide = 0;
-    let IntervalTime = 2000;
-    useEffect(() => {
-        (() => {
-
-            offset.addListener((e: { value: any; }) => {
-        
-                if( FlatListRef.current){
-                    FlatListRef.current.scrollToOffset({ offset: e.value + 100 })
-                }
-     
-            })
-            _goToNextPage();
-        })()
-    })
-
-
-    let _goToNextPage = () => {
-        let toValue = scrollX + 10
-        Animated.timing(
-            offset, {
-            toValue: toValue,
-            duration: 1000,
-            easing: Easing.linear,
-            useNativeDriver: false
-        }
-        ).start(() => _startAutoPlay())
-        // FlatListRef.current.scrollToOffset({
-        //     offset: 100,
-        //     animated: true
-        // })
-
-
-    };
-    let _startAutoPlay = () => {
-
-        let _timerId = setInterval(_goToNextPage, IntervalTime);
-
     }
 
 
@@ -119,8 +93,7 @@ export default function ReadComic() {
             setBeforeChapter(null)
             setImagesList(null)
             setIsLoading(true)
-            scrollY.setValue(0);
-            scrollYFooter.setValue(0)
+
         }
     }, [])
 
@@ -149,75 +122,20 @@ export default function ReadComic() {
                             Orientation.lockToPortrait()
                             navigation.goBack()
                         }}
-
                     >
                         <Entypo name="chevron-thin-left" color="#fff" size={20} style={{ paddingLeft: 5 }} />
                     </TouchableOpacity>
                     <Text style={styles.name}>{name}</Text>
                     <View style={{ flexBasis: 20 }}></View>
                 </Animated.View>
-                {/* <ScrollView style={styles.content} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}
-                onScroll={(e)=>{
-                    scrollY.setValue(e.nativeEvent.contentOffset.y) 
-                }}
-                >
-                    {ViewImagesALl()}
-                </ScrollView> */}
-                <View style={styles.content}>
-                    <FlatList
-                        style={{ paddingTop: height / 12 }}
-                        showsHorizontalScrollIndicator={false}
-                        initialNumToRender={10}
-                        showsVerticalScrollIndicator={false}
-                        data={imagesList ? imagesList : []}
-
-                        maxToRenderPerBatch={5}
-                        windowSize={5}
-                        keyExtractor={(item: any, index) => item + index}
-                        renderItem={({ item }) => <ImageFullWith url={item} />}
-                        ref={ref => {
-                            FlatListRef.current = ref;
-                        }}
-                        onScroll={(e) => {
-                            scrollX = e.nativeEvent.contentOffset.y
-
-                            scrollY.setValue(e.nativeEvent.contentOffset.y);
-                            scrollYFooter.setValue(e.nativeEvent.contentOffset.y)
-                        }}
-                    />
-                </View>
+                <ListImage {...{_setIsEnabled, imagesList, scrollY, scrollYFooter, isEnabled, isOffset, _setisOffset }}></ListImage>
                 <Footer {...{ translateYFooter, beforeChapter, afterChapter, _setModalVisible }}></Footer>
-                <Modals {...{ modalVisible, _setModalVisible }}></Modals>
+                <Modals {...{ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }}></Modals>
             </View>
         );
     }
 }
-const ImageFullWith = React.memo(({ url }: any) => {
-    const [heightImage, setHeightImage] = useState<any>(null);
-    // useEffect(() => {
-    //     (() => {
-    //         Image.getSizeWithHeaders(url, {
-    //             Referer: "https://manganelo.com/"
-    //         }, (withdata, heightdata) => {
-    //             console.log(withdata, heightdata)
-    //             if (heightdata) {
-    //                 setHeightImage(width * (heightdata / withdata))
-    //             }
 
-    //         }, (error) => { })
-    //     })()
-    //     return () => setHeightImage(null)
-    // }, [])
-
-    return <Image style={{ width: "100%", height: heightImage ? heightImage : (width * 3) / 2.5, flex: 1, marginBottom: 20 }}
-        source={{
-            uri: url,
-            headers: {
-                Referer: "https://manganelo.com/"
-            }
-        }} resizeMode="stretch" onError={({ nativeEvent: { error } }) => { console.log(error) }}
-    />
-})
 
 const styles = StyleSheet.create({
     container: {
