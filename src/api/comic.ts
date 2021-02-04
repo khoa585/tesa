@@ -1,5 +1,8 @@
+import { ItemComicProps } from '../screens/MainHome/MainHome';
 import axios from './axios';
-export const getListTypeCommic = (page = 1, numberItem = 10, type = 0) => {
+import { ChapterItem } from './interface/chapter.interface';
+import { ResponseApiFull } from './responsive.interface';
+export const getListTypeCommic = (page = 1, numberItem = 10, type = 0):Promise<ResponseApiFull<ItemComicProps[]>> => {
     return axios.post('/manga/get-list', {
         page: page,
         numberItem: numberItem,
@@ -7,7 +10,7 @@ export const getListTypeCommic = (page = 1, numberItem = 10, type = 0) => {
     })
 }
 
-export const getListComicByType = (page = 1, numberItem = 0, type = 0) => {
+export const getListComicByType = (page = 1, numberItem = 0, type = 0):Promise<ResponseApiFull<ItemComicProps[]>> => {
     return axios.post('/manga/get-list', {
         page: page,
         numberItem: numberItem,
@@ -19,7 +22,7 @@ export const getDetialComic = (id: string) => {
         manga_id: id
     })
 }
-export const getListByCategorySortViews = (page = 1, numberItem = 12, category: any) => {
+export const getListByCategorySortViews = (page = 1, numberItem = 12, category: any):Promise<ResponseApiFull<ItemComicProps[]>> => {
     return axios.post("/manga/get-list-category", {
         page: page,
         numberItem: numberItem,
@@ -27,7 +30,7 @@ export const getListByCategorySortViews = (page = 1, numberItem = 12, category: 
         category: category
     })
 }
-export const searchComicByName = (page = 1, numberItem = 10, name: any) => {
+export const searchComicByName = (page = 1, numberItem = 10, name: any):Promise<ResponseApiFull<ItemComicProps[]>> => {
     return axios.post("/manga/search-manga", {
         page: page,
         numberItem: numberItem,
@@ -35,7 +38,7 @@ export const searchComicByName = (page = 1, numberItem = 10, name: any) => {
     })
 }
 
-export const getListChapter = (page: number = 1, id: string, numberItem: number = 100) => {
+export const getListChapter = (page: number = 1, id: string, numberItem: number = 100):Promise<ResponseApiFull<ChapterItem[]>> => {
     return axios.post("/chapter/list-chapter", {
         manga_id: id,
         page: page,
@@ -47,7 +50,7 @@ export const getDetailChapter = (id: any) => {
         id: id
     })
 }
-export const addDevicesManga = (manga_id: any, device: any) => {
+export const addDevicesManga = (manga_id: string, device: string) => {
     return axios.post("/manga/add-devices", {
         manga_id: manga_id,
         device: device

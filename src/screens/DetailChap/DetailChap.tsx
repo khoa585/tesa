@@ -17,6 +17,7 @@ export const HeaderHeight = SCREEN_HEIGHT / 3
 import LinearGradient from 'react-native-linear-gradient';
 import Background from './Background';
 import TitleChapter from './TitleChapter';
+import { ChapterItem } from '../../api/interface/chapter.interface';
 
 export type RootStackParamList = {
     DETIAL_COMIC_SCREEN: { item: 'item', id: 'id' };
@@ -34,17 +35,17 @@ export type RouterProps = {
     }
 }
 
-export type ItemProps = {
-    commentCount: number,
-    createdAt: string,
-    index: number,
-    name: string,
-    __v: number,
-    _id: string,
-}
+// export type ItemProps = {
+//     commentCount: number,
+//     createdAt: string,
+//     index: number,
+//     name: string,
+//     __v: number,
+//     _id: string,
+// }
 
 export type DetailChapProps = {
-    data: ItemProps[],
+    data: ChapterItem[],
     numberResult: number
 }
 

@@ -67,19 +67,15 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
                 onMomentumScrollEnd={(e) => {
                     if (!isOffset) {
                         setisOffset_(e.nativeEvent.contentOffset.y)
-                        // offset.setValue(e.nativeEvent.contentOffset.y)
-                        // scrollX = e.nativeEvent.contentOffset.y
                     }
                 }}
                 onScroll={(e) => {
                     if (isEnabled) {
                         scrollX = e.nativeEvent.contentOffset.y;
                     }
-                    // if (!isOffset) {
-                    //     setisOffset_(e.nativeEvent.contentOffset.y)
-                    //     offset.setValue(e.nativeEvent.contentOffset.y)
-                    //     scrollX = e.nativeEvent.contentOffset.y
-                    // }
+                    if (!isOffset) {
+                        setisOffset_(e.nativeEvent.contentOffset.y)
+                    }
                     scrollY.setValue(e.nativeEvent.contentOffset.y);
                     scrollYFooter.setValue(e.nativeEvent.contentOffset.y)
 
