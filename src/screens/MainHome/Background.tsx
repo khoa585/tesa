@@ -3,6 +3,7 @@ import isEqual from 'react-fast-compare';
 import { StyleSheet, View } from "react-native";
 import { SCREEN_WIDTH } from '../../constants'
 import LinearGradient from 'react-native-linear-gradient';
+import { STATUS_BAR_HEIGHT } from '../../constants'
 const Background: FunctionComponent = () => {
     return (
         <>
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 1000,
         height: 1000,
-        top: -(1000 - (SCREEN_WIDTH / 2) + (SCREEN_WIDTH / 9) / 3),
+        top: -(1000 - STATUS_BAR_HEIGHT - (SCREEN_WIDTH / 2) + (SCREEN_WIDTH / 9) / 3),
         alignSelf: 'center',
         borderRadius: 1000,
         overflow: 'hidden',

@@ -5,12 +5,11 @@ const { height, width } = Dimensions.get("window");
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYFooter, isEnabled, isOffset, _setisOffset }: any) {
-
     const [offset_, setisOffset_] = useState(1);
     let offset = new Animated.Value(offset_)
     let [speed, setSpeed] = React.useState<number>(1)
     let carousel = React.useRef<any>(null);
-    let scrollX = offset_
+
     let [iscontent, setisContent] = React.useState<any>(true)
     let [isspeed, setisSpeed] = React.useState<any>(true)
     let [content, setContent] = React.useState<any>(height)
@@ -28,7 +27,7 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
             offset,
             {
                 toValue: content,
-                duration: 90000 / speed,
+                duration: 100000 / speed,
                 easing: Easing.linear,
                 useNativeDriver: false
             }
@@ -89,8 +88,8 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
                     }
                 }}
                 onScroll={(e) => {
-                    if (isspeed) {
-                        setContent(e.nativeEvent.contentSize.height)
+                    if (isspeed){
+                        setisOffset_(e.nativeEvent.contentOffset.y)
                         setisSpeed(false)
                     }
                     if (iscontent) {

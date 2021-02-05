@@ -35,9 +35,9 @@ const Item: FunctionComponent<itemProps> = ({ item }) => {
 export default React.memo(Item, isEqual)
 const styles = StyleSheet.create({
     container: {
-        width: ((SCREEN_WIDTH / 2.5)),
-        height: (SCREEN_WIDTH * 0.6),
-        marginRight: 20,
+        width: ((SCREEN_WIDTH / 2.8)),
+        height: (SCREEN_WIDTH * 0.5),
+        marginRight: 15,
         backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: "#000",
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     containerImage: {
-        width: "80%",
+        width: "90%",
         height: "90%",
         resizeMode: 'cover',
         alignItems: 'center',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     nameComic: {
-        paddingVertical: 3,
+
         textAlign: "center",
         fontSize: 14,
         fontWeight: 'bold'
