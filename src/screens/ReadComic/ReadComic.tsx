@@ -47,11 +47,11 @@ export default function ReadComic() {
     })
 
     const [isEnabled, setIsEnabled] = React.useState(false);
-    const diffClampFooter = Animated.diffClamp(scrollYFooter, 0, height / 12)
+    const diffClampFooter = Animated.diffClamp(scrollYFooter, 0, height / 13)
     const [isOffset, setisOffset] = useState(true);
     const translateYFooter = diffClampFooter.interpolate({
-        inputRange: [0, height / 12],
-        outputRange: [0, height / 12]
+        inputRange: [0, height / 13],
+        outputRange: [0, height / 13]
     })
     const _setisOffset = (e: boolean) => {
         setisOffset(e)
@@ -103,7 +103,7 @@ export default function ReadComic() {
             <View style={styles.containers}>
                 <ActivityIndicator
                     animating={isLoading}
-                    color='#bc2b78'
+                    color='#000'
                     size="large"
                     style={styles.activityIndicator} />
             </View>
@@ -111,7 +111,7 @@ export default function ReadComic() {
     } else {
         return (
             <View style={styles.container}>
-                <StatusBar translucent backgroundColor="transparent" />
+                {/* <StatusBar translucent backgroundColor="transparent" /> */}
                 <Animated.View style={[styles.Header, {
                     transform: [
                         { translateY: translateY }
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor:'#fff'
     },
     activityIndicator: {
         flex: 1,

@@ -7,16 +7,16 @@ import {
     TouchableOpacity,
     View,
     Switch,
-    TouchableWithoutFeedback
 } from "react-native";
 const { width, height } = Dimensions.get('window')
-import {SCREEN_HEIGHT} from './../../constants'
+import { SCREEN_HEIGHT, } from './../../constants'
 import Orientation from 'react-native-orientation';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { color } from "react-native-reanimated";
 
 
 const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) => {
-
+    const [isTurn, setTurn] = React.useState<number>(0)
 
     return (
         <Modal
@@ -30,15 +30,14 @@ const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) =>
                 activeOpacity={1}
                 onPress={() => _setModalVisible(false)}
             >
-
             </TouchableOpacity>
             <View style={{
                 position: 'absolute',
                 width: '100%',
-                height: SCREEN_HEIGHT / 3,
+                height: SCREEN_HEIGHT / 5,
                 right: '0%',
                 bottom: '0%',
-                backgroundColor: "white",
+                backgroundColor: '#fff',
                 alignItems: "center",
                 shadowColor: "#000",
                 shadowOffset: {
@@ -47,34 +46,41 @@ const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) =>
                 },
                 shadowOpacity: 0.25,
                 shadowRadius: 3.84,
-                elevation: 5
+                elevation: 5,
+                borderTopRightRadius: 20,
+                borderTopLeftRadius: 20
             }}>
                 <View style={styles.modalView}>
                     <View style={styles.iconTurn}>
                         <Text style={styles.txt}>Turn</Text>
-                        <View style={styles.Touchable}>
-                            <TouchableWithoutFeedback
-                                onPress={() => Orientation.lockToPortrait()}
+                        <View style={[styles.Touchable]}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    Orientation.lockToPortrait()
+                                    setTurn(0)
+                                }}
                             >
-                                <Ionicons style={styles.icon} name="phone-portrait-outline" size={30}></Ionicons>
-                            </TouchableWithoutFeedback>
-                            <Text >Vertical</Text>
+                                <Ionicons style={[styles.icon]} color={isTurn === 0 ? '#e63946' : '#000'} name="phone-portrait-outline" size={30}></Ionicons>
+                            </TouchableOpacity>
+                            <Text style={[{ color: isTurn === 0 ? '#e63946' : '#000' }]}>Vertical</Text>
                         </View>
                         <View style={styles.Touchable}>
-                            <TouchableWithoutFeedback
-                                onPress={() => Orientation.lockToLandscapeLeft()}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    Orientation.lockToLandscapeLeft()
+                                    setTurn(1)
+                                }}
                             >
-                                <Ionicons style={styles.icon} name="phone-landscape-outline" size={30}></Ionicons>
-
-                            </TouchableWithoutFeedback>
-                            <Text >Horizontal</Text>
+                                <Ionicons style={styles.icon} color={isTurn === 1 ? '#e63946' : '#000'}  name="phone-landscape-outline" size={30}></Ionicons>
+                            </TouchableOpacity>
+                            <Text style={[{ color: isTurn === 1 ? '#e63946' : '#000' }]}>Horizontal</Text>
                         </View>
                     </View>
                     <View style={styles.iconAuto}>
                         <Text style={styles.txt}>Auto Scroll</Text>
                         <Switch
-                            trackColor={{ false: "#767577", true: "#81b0ff" }}
-                            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                            trackColor={{ false: "#767577", true: "#e63946" }}
+                            thumbColor={isEnabled ? "#e63946" : "#f4f3f4"}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={_toggleSwitch}
                             value={isEnabled}
@@ -83,7 +89,7 @@ const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) =>
                     </View>
                 </View>
             </View>
-        </Modal>
+        </Modal >
 
     );
 };

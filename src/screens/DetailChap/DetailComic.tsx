@@ -19,7 +19,6 @@ const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
     const gradColors = isDown ? ['#4da7db', '#5bc6ff'] : ['#5bc6ff', '#4da7db'];
     return (
         <View style={styles.containerComic}>
-
             <Header></Header>
             <View style={styles.container_}>
                 <View style={styles.containerImage}>
@@ -44,7 +43,6 @@ const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
                     </View>
                     <View>
                         <TouchableOpacity style={[styles.read]}>
-
                             <LinearGradient
                                 colors={gradColors}
                                 useAngle={true}

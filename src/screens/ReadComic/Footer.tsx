@@ -32,7 +32,7 @@ export default function Footer({ translateYFooter, beforeChapter, afterChapter, 
                     <TouchableOpacity
                         onPress={() => _setModalVisible(true)}
                     >
-                        <Ionicons name="settings-outline" size={30} color={"#ffffff"} />
+                        <Ionicons name="settings-outline" size={25} color={"#ffffff"} />
                     </TouchableOpacity>
                 </View>
                 <View >

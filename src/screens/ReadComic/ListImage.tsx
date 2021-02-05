@@ -6,15 +6,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYFooter, isEnabled, isOffset, _setisOffset }: any) {
 
-    const [offset_, setisOffset_] = useState(0);
+    const [offset_, setisOffset_] = useState(1);
     let offset = new Animated.Value(offset_)
-
+    let [speed, setSpeed] = React.useState<number>(1)
     let carousel = React.useRef<any>(null);
     let scrollX = offset_
-
+    let [iscontent, setisContent] = React.useState<any>(true)
+    let [isspeed, setisSpeed] = React.useState<any>(true)
+    let [content, setContent] = React.useState<any>(height)
     let scrollTo = React.useCallback((e) => {
-        if (carousel.current && isOffset) {
-            carousel.current.scrollToOffset({ offset: e.value });
+        if (carousel && isOffset) {
+            carousel.current.scrollToOffset({
+                offset: e.value,
+                animated: true
+            });
         }
     }, [])
 
@@ -22,10 +27,10 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
         let animation = Animated.timing(
             offset,
             {
-                toValue: scrollX + 100,
-                duration: 1000,
+                toValue: content,
+                duration: 90000 / speed,
                 easing: Easing.linear,
-                useNativeDriver: true
+                useNativeDriver: false
             }
         );
         animation.start(() => _scroller());
@@ -37,16 +42,30 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
             var _scrollTo = offset.addListener(scrollTo);
         }
         return () => offset.removeListener(_scrollTo)
-    }, [isEnabled, isOffset])
+    }, [isEnabled, isOffset, content, speed])
 
     const onhandlerPause = () => {
         _setisOffset(false)
     }
     const onhandlernext = () => {
-        _setisOffset(true)
-        _setIsEnabled(true)
-    }
+        if (isEnabled) {
+            _setisOffset(true)
+            _setIsEnabled(true)
 
+        }
+
+    }
+    const onhandlerSpeed = () => {
+        setisSpeed(true)
+        setSpeed((e: number): any => {
+            if (e === 1.5) {
+                return 1
+            }
+            return e + 0.5
+        })
+        onhandlernext()
+  
+    }
     return (
         <View style={styles.content}>
             <FlatList
@@ -55,7 +74,6 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
                 initialNumToRender={10}
                 showsVerticalScrollIndicator={false}
                 data={imagesList ? imagesList : []}
-
                 maxToRenderPerBatch={5}
                 windowSize={5}
                 keyExtractor={(item: any, index) => item + index}
@@ -63,24 +81,40 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
                 ref={ref => {
                     carousel.current = ref;
                 }}
-                scrollEventThrottle={16}
+                scrollEventThrottle={1}
                 onMomentumScrollEnd={(e) => {
+
                     if (!isOffset) {
                         setisOffset_(e.nativeEvent.contentOffset.y)
                     }
                 }}
                 onScroll={(e) => {
-                    if (isEnabled) {
-                        scrollX = e.nativeEvent.contentOffset.y;
+                    if (isspeed) {
+                        setContent(e.nativeEvent.contentSize.height)
+                        setisSpeed(false)
+                    }
+                    if (iscontent) {
+                        setContent(e.nativeEvent.contentSize.height)
+                        setisContent(false)
                     }
                     if (!isOffset) {
                         setisOffset_(e.nativeEvent.contentOffset.y)
                     }
+
                     scrollY.setValue(e.nativeEvent.contentOffset.y);
                     scrollYFooter.setValue(e.nativeEvent.contentOffset.y)
 
                 }}
             />
+            {
+                isEnabled ? (<TouchableOpacity
+                    onPress={onhandlerSpeed}
+                    activeOpacity={0.9}
+                    style={styles.speed}>
+                    <Text style={{ color: '#fff' }}>{speed.toString()}X</Text>
+                </TouchableOpacity>) : null
+            }
+
             {
                 isEnabled ? isOffset ? (
                     <TouchableOpacity style={styles.pause}
@@ -97,8 +131,6 @@ export default function ListImage({ _setIsEnabled, imagesList, scrollY, scrollYF
                             <Ionicons name="play-sharp" size={20} color="#fff"></Ionicons>
                         </TouchableOpacity>
                     ) : null
-
-
             }
 
         </View>
@@ -215,6 +247,16 @@ const styles = StyleSheet.create({
     pause: {
         position: 'absolute',
         bottom: '10%',
+        right: '5%',
+        zIndex: 999,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: '#161a1d',
+        borderRadius: 10
+    },
+    speed: {
+        position: 'absolute',
+        bottom: '16%',
         right: '5%',
         zIndex: 999,
         paddingHorizontal: 20,

@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, TouchableOpacity, Text, Platform } from "react
 
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import * as screen from '../../constants/ScreenTypes'
-
+import { STATUS_BAR_HEIGHT } from '../../constants'
 export const logo = require('../../assets/image/logo.png');
 import { useNavigation } from '@react-navigation/native';
 import isEqual from 'react-fast-compare';
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20,
+        marginTop: STATUS_BAR_HEIGHT
     },
     wrapperIcon: {
         alignContent: "center",

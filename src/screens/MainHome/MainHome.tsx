@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, StyleSheet, ScrollView, RefreshControl, StatusBar } from 'react-native';
 import TabActionBar from './TabActionBar'
 import Header from './Header';
 import Background from './Background';
@@ -16,7 +16,7 @@ export type ItemComicProps = {
     commentCount: number,
     createdAt: string,
     description: string,
-    devices:any,
+    devices: any,
     enable: true,
     first_chapter: string,
     image: string,
@@ -73,6 +73,7 @@ const MainHome: FunctionComponent = () => {
 
     return (
         <View style={styles.container}>
+            <StatusBar translucent backgroundColor="transparent" />
             <ScrollView
                 scrollEventThrottle={1}
                 refreshControl={
@@ -91,7 +92,8 @@ export default React.memo(MainHome, isEqual)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '#F5F5F5',
+        
     },
     distant: {
         height: 10,
