@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     container: {
         width: ((SCREEN_WIDTH / 2.8)),
         height: (SCREEN_WIDTH * 0.5),
-        marginRight: 15,
+        marginRight: 5,
         backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: "#000",

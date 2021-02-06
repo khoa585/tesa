@@ -9,5 +9,5 @@ export const tabs = [
     { icon: <Category />, name: 'Category' },
     { icon: <Follow />, name: 'Follow' },
     { icon: <History />, name: 'History' },
-    { icon: <User />, name: 'Profile' },
+    { icon: <User />, name: 'Setting' },
 ];
