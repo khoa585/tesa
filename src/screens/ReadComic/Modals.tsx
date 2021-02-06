@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Dimensions,
     Modal,
@@ -12,12 +12,31 @@ const { width, height } = Dimensions.get('window')
 import { SCREEN_HEIGHT, } from './../../constants'
 import Orientation from 'react-native-orientation';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { color } from "react-native-reanimated";
+import Slider from '@react-native-community/slider';
+import ScreenBrightness from 'react-native-screen-brightness';
 
 
 const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) => {
-    const [isTurn, setTurn] = React.useState<number>(0)
-
+    const [isTurn, setTurn] = React.useState<number>(0);
+    const [valueBrightness,setValueBrightness]=React.useState<number>(0)
+    const _OnchangeBrightness=async(e)=>{
+        let hasPerm = await ScreenBrightness.hasPermission();
+        if(!hasPerm){
+            ScreenBrightness.requestPermission();
+            return;
+       }
+        ScreenBrightness.setBrightness(e*0.2);
+        // ScreenBrightness.getBrightness().then(brightness => {
+            
+        //     console.log('brightness', brightness);
+        // });
+        
+    }
+    useEffect(()=>{
+         ScreenBrightness.getBrightness().then(brightness => {
+            setValueBrightness(brightness/42);
+         });
+    },[])
     return (
         <Modal
             animationType="fade"
@@ -28,13 +47,14 @@ const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) =>
             <TouchableOpacity
                 style={styles.centeredView}
                 activeOpacity={1}
+               
                 onPress={() => _setModalVisible(false)}
             >
             </TouchableOpacity>
             <View style={{
                 position: 'absolute',
                 width: '100%',
-                height: SCREEN_HEIGHT / 5,
+                height: SCREEN_HEIGHT / 4,
                 right: '0%',
                 bottom: '0%',
                 backgroundColor: '#fff',
@@ -75,6 +95,17 @@ const Modals = ({ modalVisible, _setModalVisible, isEnabled, _toggleSwitch }) =>
                             </TouchableOpacity>
                             <Text style={[{ color: isTurn === 1 ? '#e63946' : '#000' }]}>Horizontal</Text>
                         </View>
+                    </View>
+                    <View style={{flexDirection:"row",marginVertical:40}}>
+                        <Text style={{marginRight:20,fontSize:18}}>Brightness</Text>
+                        <Slider 
+                             minimumValue={0}
+                             maximumValue={5}
+                             step={1}
+                             value={valueBrightness}
+                                style={{flex:1}}
+                            onValueChange={_OnchangeBrightness}
+                        />
                     </View>
                     <View style={styles.iconAuto}>
                         <Text style={styles.txt}>Auto Scroll</Text>
