@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native'
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import { navigationRef } from './NavigationService';
@@ -9,11 +10,16 @@ import Search from '../screens/Search';
 import AuthStack from './AuthStack';
 import DetailChap from '../screens/DetailChap';
 import ReadComic from '../screens/ReadComic';
+import ListChappter from '../screens/ReadComic/ListChappter';
 
 
 const navigationOptions: StackNavigationOptions = {
     headerShown: false,
-    gestureEnabled: false
+    gestureEnabled: true
+}
+const AllOptionSlideFromRight: StackNavigationOptions = {
+    ...TransitionPresets.FadeFromBottomAndroid,
+    // cardStyle: { backgroundColor: 'transparent' }
 }
 
 export default () => {
@@ -23,7 +29,8 @@ export default () => {
                 <Stack.Screen name={screen.MAIN_HOME_SCREEN} component={AuthStack} />
                 <Stack.Screen name={screen.SEARCH_SCREEN} component={Search} />
                 <Stack.Screen name={screen.DETIAL_COMIC_SCREEN} component={DetailChap} />
-                <Stack.Screen name={screen.DETIAL_CHAPTER} component={ReadComic} />
+                <Stack.Screen options={StyleSheet.flatten(AllOptionSlideFromRight)} name={screen.DETIAL_CHAPTER} component={ReadComic} />
+                <Stack.Screen name={screen.CHAPTER_LIST_SCREEN} component={ListChappter} />
             </Stack.Navigator>
         </NavigationContainer>
     )

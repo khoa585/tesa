@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, ScrollView, RefreshControl, StatusBar } from 'react-native';
+import { View, StyleSheet, ScrollView, RefreshControl, Platform, StatusBar, } from 'react-native';
 import TabActionBar from './TabActionBar'
 import Header from './Header';
 import Background from './Background';
 import isEqual from 'react-fast-compare';
 import ComicHot from './ComicHot';
 import { getListTypeCommic } from './../../api/comic';
+import Category from './Category';
 
 
 export type ItemComicProps = {
@@ -63,7 +64,15 @@ const MainHome: FunctionComponent = () => {
             setLoading(false);
         }
     }
+    React.useEffect(() => {
+   
+        StatusBar.setBarStyle("dark-content");
 
+        if (Platform.OS === "android") {
+          StatusBar.setBackgroundColor("rgba(0,0,0,0)");
+          StatusBar.setTranslucent(true);
+        }
+      }, []);
     const onRefresh = () => {
         setRefreshing(true);
         setListComic(null)
@@ -73,17 +82,21 @@ const MainHome: FunctionComponent = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar translucent backgroundColor="transparent" />
+            <StatusBar hidden={false} translucent backgroundColor="transparent" />
+
             <ScrollView
                 scrollEventThrottle={1}
+               
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }>
                 <Header></Header>
-                <Background></Background>
+                {/* <Background></Background> */}
                 <TabActionBar></TabActionBar>
-                <ComicHot {...{ listComic: listComic ? listComic.listComicHot : [], loading }}>Truyện đọc nhiều nhất</ComicHot>
-                <ComicHot {...{ listComic: listComic ? listComic.listComicHUpdate : [], loading }}>Truyện mới nhất</ComicHot>
+                
+                <ComicHot {...{ listComic: listComic ? listComic.listComicHot : [], loading }}>Top Manga</ComicHot>
+                <Category></Category>
+                <ComicHot {...{ listComic: listComic ? listComic.listComicHUpdate : [], loading }}>New Manga</ComicHot>
             </ScrollView>
         </View>
     )
@@ -92,7 +105,7 @@ export default React.memo(MainHome, isEqual)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#fff',
         
     },
     distant: {

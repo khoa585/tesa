@@ -5,7 +5,7 @@ import * as screen from '../constants/ScreenTypes'
 
 import NavigationBar from '../components/NavigationBar/index'
 import MainHome from '../screens/MainHome';
-import Setting from './../screens/Setting';
+
 export type TypeProps = {
   showLabel: boolean
 };
@@ -36,7 +36,7 @@ export default () => {
         component={MainHome} />
       <Tab.Screen
         name={screen.SETTING_SCREEN}
-        component={Setting} />
+        component={MainHome} />
     </Tab.Navigator>
   );
 }

@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, Platform, Animated, Easing } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+
 import { useNavigation } from '@react-navigation/native';
 import Header from './Header';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,77 +11,93 @@ import { formatViews } from '../../common/stringHelper'
 import { ItemComicProps } from '../MainHome/MainHome'
 
 type DetailComicProps = {
+    fadeIn: any
     item: ItemComicProps | any
 }
-const DetailComic: FunctionComponent<DetailComicProps> = ({ item }) => {
+const DetailComic: FunctionComponent<DetailComicProps> = ({ fadeIn, item }) => {
 
     const navigation = useNavigation();
     const [isDown, setDown] = React.useState<boolean>(false);
 
     const gradColors = isDown ? ['#4da7db', '#5bc6ff'] : ['#5bc6ff', '#4da7db'];
+
     return (
-        <View style={styles.containerComic}>
-            <Header></Header>
-            <View style={styles.container_}>
-                <View style={styles.containerImage}>
-                    <Image source={{ uri: item.image }}
-                        style={styles.img} />
-                </View>
-            </View>
-            <View style={styles.contai}>
-                <Text style={styles.nameComic}>{item.name}</Text>
-                <Text style={styles.nameAuthor}>{item.author.split(/\n/)}</Text>
-                <View style={styles.action}>
-                    <View style={styles.icon}>
-                        <LinearGradient
-                            colors={['#4da7db', '#5bc6ff']}
-                            useAngle={true}
-                            angle={145}
-                            angleCenter={{ x: 0.5, y: 0.5 }}
-                            style={[styles.icon]}
-                        >
-                            <EvilIcons name="heart" size={30} color="#FFF" />
-                        </LinearGradient>
+        <View style={styles.conatiner}>
+            <View style={styles.containerComic}>
+                <Header></Header>
+                <View style={styles.container_}>
+                    <View style={styles.containerImage}>
+                        <Image source={{ uri: item.image }}
+                            style={styles.img} />
                     </View>
-                    <View>
-                        <TouchableOpacity style={[styles.read]}>
+                </View>
+                <View style={styles.contai}>
+                    <Text style={styles.nameComic}>{item.name}</Text>
+                    <Text style={styles.nameAuthor}>{item.author.split(/\n/)}</Text>
+                    <View style={styles.action}>
+                        <TouchableOpacity
+                            onPress={fadeIn}
+                            activeOpacity={0.8}
+                        >
+                            <View style={styles.icon}>
+                                <LinearGradient
+                                    colors={['#5bc6ff', '#4da7db']}
+                                    useAngle={true}
+                                    angle={145}
+                                    angleCenter={{ x: 0.5, y: 0.5 }}
+                                    style={[styles.icon]}
+                                >
+                                    <EvilIcons name="heart" size={30} color="#FFF" />
+                                </LinearGradient>
+                            </View>
+                        </TouchableOpacity>
+                        <View>
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                style={[styles.read]}>
+                                <LinearGradient
+                                    colors={gradColors}
+                                    useAngle={true}
+                                    angle={145}
+                                    angleCenter={{ x: 0.5, y: 0.5 }}
+                                    style={[styles.read]}
+                                >
+
+                                    <Text style={styles.txtRead}>READ NOW</Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.icon}>
                             <LinearGradient
-                                colors={gradColors}
+                                colors={['#5bc6ff', '#4da7db']}
                                 useAngle={true}
                                 angle={145}
                                 angleCenter={{ x: 0.5, y: 0.5 }}
-                                style={[styles.read]}
+                                style={[styles.icon]}
                             >
-
-                                <Text style={styles.txtRead}>READ NOW</Text>
+                                <EvilIcons name="comment" size={30} color="#FFF" />
                             </LinearGradient>
-                        </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.icon}>
-                        <LinearGradient
-                            colors={['#4da7db', '#5bc6ff']}
-                            useAngle={true}
-                            angle={145}
-                            angleCenter={{ x: 0.5, y: 0.5 }}
-                            style={[styles.icon]}
-                        >
-                            <EvilIcons name="comment" size={30} color="#FFF" />
-                        </LinearGradient>
+                    <View style={styles.wrap}>
+                        <Text style={styles.status}>Status: <Text style={styles.normal}>{item.manga_status === 0 ? 'Continue' : 'Full'}</Text></Text>
+                        <View style={styles.wrapViews}>
+                            <EvilIcons name="eye" size={35} color="#5bc6ff" />
+                            <Text style={styles.normal}>{formatViews(item.views)}</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.wrap}>
-                    <Text style={styles.status}>Status: <Text style={styles.normal}>{item.manga_status === 0 ? 'Continue' : 'Full'}</Text></Text>
-                    <View style={styles.wrapViews}>
-                        <EvilIcons name="eye" size={35} color="#5bc6ff" />
-                        <Text style={styles.normal}>{formatViews(item.views)}</Text>
-                    </View>
-                </View>
+
             </View>
+
         </View>
     )
 }
 export default DetailComic;
 const styles = StyleSheet.create({
+    conatiner: {
+        flex: 1,
+    },
     containerComic: {
         flex: 1,
     },
@@ -146,7 +164,7 @@ const styles = StyleSheet.create({
         elevation: 2
     },
     contai: {
-        marginTop: SCREEN_HEIGHT / 4.5,
+        marginTop: (SCREEN_WIDTH / 1.7) / 1.45,
         width: '100%',
         borderRadius: 40,
         borderBottomRightRadius: 0,
@@ -159,11 +177,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 5,
         textAlign: 'center',
+        fontFamily: 'Brygada1918-Medium'
     },
     status: {
         color: '#5bc6ff',
         fontSize: 15,
-        fontWeight: 'bold',
+        fontFamily: 'Brygada1918-Bold'
     },
     category: {
         color: '#000',
@@ -173,14 +192,15 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         color: '#000',
         fontSize: 14,
+        fontFamily: 'Brygada1918-Bold'
     },
     nameComic: {
         color: '#000',
-        fontWeight: 'bold',
         fontSize: 20,
         textAlign: 'center',
         marginTop: 80,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        fontFamily: 'Brygada1918-Bold'
     },
     wrap: {
         flexDirection: 'row',
@@ -191,8 +211,8 @@ const styles = StyleSheet.create({
         marginBottom: 1,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
-        borderTopColor: '#5bc6ff',
-        borderBottomColor: '#5bc6ff'
+        borderTopColor: '#d6d6d6',
+        borderBottomColor: '#d6d6d6'
     },
     wrapViews: {
         flexDirection: 'row',
@@ -201,7 +221,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
         width: '50%',
         paddingVertical: 10,
-        borderColor: '#5bc6ff'
+        borderColor: '#d6d6d6'
     },
     read: {
         width: 150,
@@ -212,6 +232,26 @@ const styles = StyleSheet.create({
         elevation: 2
     },
     txtRead: {
-        color: '#fff'
+        color: '#fff',
+        fontFamily: 'Brygada1918-Bold'
+    },
+    love: {
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        zIndex: 99,
+        backgroundColor: 'red'
+
+    },
+    icon_: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 2,
     }
 })

@@ -26,9 +26,8 @@ export default ({
                 paddingTop: 5,
                 width: SCREEN_WIDTH / 5,
                 height: 55,
-          
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
             onPress={() => {
                 onPress_()
@@ -38,16 +37,18 @@ export default ({
                 style={{
                     width: ICON_SIZE,
                     height: ICON_SIZE,
+
                 }}
             >
                 <Animated.View style={[StyleSheet.absoluteFill]}>{children.icon}</Animated.View>
                 <Animated.View style={[{
                     width: width, overflow: "hidden",
+                    
                 }]}>
                     {React.cloneElement(children.icon, isFocused && { active: true })}
                 </Animated.View>
             </Animated.View>
-            <Animated.Text style={[ { fontSize: 11 ,marginTop:5}]}>
+            <Animated.Text style={[ { fontSize: 11 ,marginTop:5,color:'#000',fontFamily: 'Brygada1918-Medium'}]}>
                 {children.name}
             </Animated.Text>
         </RectButton>
